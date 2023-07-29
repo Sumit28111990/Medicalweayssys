@@ -72,7 +72,7 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res, "resposnse");
+                    // console.log(res, "resposnse");
                     if (res.data.result.length == 0) {
                         // console.log("iff sildebar")
                     } else {
