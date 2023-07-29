@@ -242,6 +242,7 @@ export default {
     },
     methods: {
         handlePageChange(page) {
+            // console.log(page,'paeg')
             this.pagination.current_page = page;
             let token = localStorage.getItem("token");
             if (this.filterQuery) {

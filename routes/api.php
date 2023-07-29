@@ -70,7 +70,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('get-my-product-preview/{id}', [MyProductController::class, 'getProductPreview']);
     Route::post('my-product-image-delete',[MyProductController::class, 'deleteGalleryImages']);
     Route::post('my-product-review', [MyProductController::class, 'productReview']);
-    // Route::get('my-product-get-review/{id}', [MyProductController::class, 'getProductReview']);
+    Route::get('my-product-get-review/{id}', [MyProductController::class, 'getProductReview']);
+    Route::delete('my-product-delete-review/{id}', [MyProductController::class, 'deleteProductReview']);
+    Route::get('my-product-get-single-review/{id}', [MyProductController::class, 'getSingleProductReview']);
+    Route::post('my-product-update-review/{id}', [MyProductController::class, 'updateProductReview']);
 
 
 

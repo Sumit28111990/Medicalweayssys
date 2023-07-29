@@ -1,19 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-// use DB;
-// use Storage;
-// use Validator;
-// use App\Models\MyProduct;
-// use App\Models\MyProductGallery;
-// use Illuminate\Support\Str;
-// use Illuminate\Http\Request;
-// use App\Traits\RequestTraits;
-// use App\Traits\PaginationTraits;
-// use App\Models\MyProductSequence;
-// use Intervention\Image\Facades\Image;
-// use Symfony\Component\HttpFoundation\Response;
-// use App\Http\Controllers\BaseController as BaseController;
+
 use DB;
 use Storage;
 use Validator;
@@ -25,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Traits\RequestTraits;
 use App\Traits\PaginationTraits;
 use App\Models\MyProductSequence;
+use App\Models\MyProductReviews;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\BaseController as BaserevController;
@@ -36,92 +25,7 @@ class MyProductController extends BaseController
     
     use RequestTraits;
     use PaginationTraits;
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index(Request $request)
-    // {
-    //     //$data = DB::table('my_products')->get();
-    //     $data = DB::table('my_products')->where('is_deleted',false)->get();
-
-    //     if ($data->isEmpty()){
-    //         $this->setResponseCode(404);
-    //         $this->apiResponse['message'] = 'Data not founded';
-    //         $this->apiResponse['status'] = FALSE;
-    //     }else{
-    //         $this->setResponseCode(200);
-    //         $this->apiResponse['message'] = 'all products retrieved successfully';
-    //         $this->apiResponse['result'] = $data;
-           
-    
-    //     }
-    //     return $this->sendResponse();
-    // }
-    // public function index(Request $request)
-    // {
-    //     $perPage = $request->get('page_size', '');
-    //     $page = $request->get('page', 1);
-    //     $orderby = $request->get('orderby', 'desc');
-    //     $search = $request->get('search', '');
-        
-    //     if (empty($perPage)) {
-    //         $perPage = $this->perPage;
-    //     }
-        
-    //     $columns = \DB::getSchemaBuilder()->getColumnListing('my_products');
-    //     $total = DB::table('my_products')->where('is_deleted', false)->count();
-        
-    //     $offset = $this->getOffset($page, $perPage);
-    //     $data = DB::table('my_products')
-    //         ->where('is_deleted', false)
-    //         ->offset($offset)
-    //         ->limit($perPage)
-    //         ->orderBy('created_at', $orderby)
-    //         ->get();
-        
-    //     $pagination = $this->getPaginationFormate($total, $perPage, $page);
-    //     $result = $this->getDataWithPagination($data, $pagination);
-        
-    //     $this->setResponseCode(200);
-    //     $this->apiResponse['message'] = 'All products retrieved successfully';
-    //     $this->apiResponse['result'] = $result;
-        
-    //     return $this->sendResponse();
-    // }
-    //public function index(Request $request)
-// {
-//     $perPage = $request->get('page_size', '');
-//     $page = $request->get('page', 1);
-//     $orderby = $request->get('orderby', 'desc');
-//     $search = $request->get('search', '');
-    
-//     if (empty($perPage)) {
-//         $perPage = $this->perPage;
-//     }
-    
-//     $tableName = 'my_products';
-//     $columns = \DB::getSchemaBuilder()->getColumnListing($tableName);
-//     $columnsToSelect = array_diff($columns, ['created_at', 'updated_at','is_deleted']);
-    
-//     $total = DB::table($tableName)->where('is_deleted', false)->count();
-
-//     $offset = $this->getOffset($page, $perPage);
-//     $data = DB::table($tableName)
-//         ->where('is_deleted', false)
-//         ->offset($offset)
-//         ->limit($perPage)
-//         ->orderBy('created_at', $orderby)
-//         ->get($columnsToSelect);
-
-//     $pagination = $this->getPaginationFormate($total, $perPage, $page);
-//     $result = $this->getDataWithPagination($data, $pagination);
-    
-//     $this->setResponseCode(200);
-//     $this->apiResponse['message'] = 'All products retrieved successfully';
-//     $this->apiResponse['result'] = $result;
-    
-//     return $this->sendResponse();
-// }
+  
 public function index(Request $request)
 {
     $perPage = $request->get('page_size', '');
@@ -282,28 +186,7 @@ public function index(Request $request)
     
         return $this->sendResponse();
     }
-    
-    // public function show(string $id)
-    // {
-    //     $myproduct = DB::table('my_products')
-    //         ->leftJoin('my_product_galleries', 'my_products.id', '=', 'my_product_galleries.my_product_id')
-    //         ->select('my_products.*',  'my_product_galleries.IMAGE_PATH')
-    //         ->where('my_products.id', $id)
-    //         ->where('my_products.is_deleted', false)
-    //         ->first();
-    
-    //     if (!$myproduct) {
-    //         $this->setResponseCode(404);
-    //         $this->apiResponse['message'] = 'Data not found';
-    //         $this->apiResponse['status'] = false;
-    //     } else {
-    //         $this->setResponseCode(200);
-    //         $this->apiResponse['message'] = 'Myproduct retrieved successfully';
-    //         $this->apiResponse['result'] = $myproduct;
-    //     }
-    
-    //     return $this->sendResponse();
-    // }
+   
     
 
 
@@ -363,30 +246,7 @@ public function index(Request $request)
             $this->apiResponse['status'] = FALSE;
 
         }else{
-            // $data = $request->all();
-            // for ($i=0; $i < count($data['name']); $i++) { 
-            //    $file = isset($data['icon'][$i]) ? $data['icon'][$i] : null;
-            //    $parent_id = $data['parent_id'][$i];
-            //    $name = $data['name'][$i];
-            //    $description = $data['description'][$i];
-        
-            //    if ($file != 'undefined') {
-            //         $filename = uniqid() .'.'. $file->getClientOriginalExtension();
-            //         $origalName = $file->getClientOriginalName();
-            //         $image_type = $file->getMimeType();
-            //         $image_ext = $file->getClientOriginalExtension();
-            //         $full_path = 'product_images/'.$filename;
-            //         $file->storeAs('public/product_images', $filename);
-            //    }else{
-            //     $full_path = null;
-            //    }
-            //      DB::Table('my_product_features')->insert([
-            //         'my_product_id'=>$parent_id,
-            //         'title'=>$name,
-            //         'icon_path'=>$full_path,
-            //         'description'=>$description,
-            //     ]);
-            // }
+            
             $data = $request->all();
             for ($i=0; $i < count($data['name']); $i++) { 
                 $file = isset($data['icon'][$i]) ? $data['icon'][$i] : null;
@@ -421,28 +281,7 @@ public function index(Request $request)
                 ]);
                 }
             }
-            // foreach ($data as $item) {
-            //     print_r($item);
-                // $url = $item['icon'];
-                // $parent_id = $item['parent_id'];
-                // $name = $item['name'];
-                // $description = $item['description'];
-                // $file_mime = $item['mime_type'];
-                // $fileContent = file_get_contents($url);
-                // list($mime, $extension) = explode('/', $file_mime);
-                // $filename = uniqid() .'.'. $extension;
-                // $pathForDb ='product_icon/'.$filename;
-                // if (!empty($fileContent)) {
-                //     Storage::disk('public')->put('product_icon/'.$filename, $fileContent);
-                // }
-                // DB::Table('my_product_features')->insert([
-                //     'my_product_id'=>$parent_id,
-                //     'title'=>$name,
-                //     'icon_path'=>$pathForDb,
-                //     'description'=>$description,
-                // ]);
-            // }
-            // die;
+         
             $this->setResponseCode(201);
             $this->apiResponse['message'] ='Product Feature Added successfully';
             $this->apiResponse['result'] = [];
@@ -518,11 +357,7 @@ public function index(Request $request)
                 $name = $item['name'];
                 $description = $item['description'];
         
-                // DB::Table('my_product_faqs')->insert([
-                //     'my_product_id'=>$parent_id,
-                //     'title'=>$name,
-                //     'description'=>$description,
-                // ]);
+                
                 DB::table('my_product_faqs')->updateOrInsert(
                     ['my_product_id' => $parent_id, 'title' => $name],
                     ['description' => $description]
@@ -596,27 +431,7 @@ public function index(Request $request)
 
         }else{
             $data = $request->all();
-            // for ($i=0; $i < count($data['name']); $i++) { 
-            //    $file = isset($data['icon'][$i]) ? $data['icon'][$i] : null;
-            //    $parent_id = $data['parent_id'][$i];
-            //    $name = $data['name'][$i];
-            //    if ($file) {
-            //         $filename = uniqid() .'.'. $file->getClientOriginalExtension();
-            //         $origalName = $file->getClientOriginalName();
-            //         $image_type = $file->getMimeType();
-            //         $image_ext = $file->getClientOriginalExtension();
-            //         $full_path = 'product_images/'.$filename;
-            //         $file->storeAs('public/product_images', $filename);
-            //    }else{
-            //     $full_path = null;
-            //    }
-            //      DB::Table('my_product_sidebars')->insert([
-            //         'my_product_id'=>$parent_id,
-            //         'title'=>$name,
-            //         'icon_path'=>$full_path,
-                    
-            //     ]);
-            // }
+           
             for ($i=0; $i < count($data['name']); $i++) { 
                 $file = isset($data['icon'][$i]) ? $data['icon'][$i] : null;
                 $parent_id = $data['parent_id'][$i];
@@ -646,28 +461,7 @@ public function index(Request $request)
                      ]);
                  }  
              }
-            // foreach ($data as $item) {
-            //     print_r($item);
-                // $url = $item['icon'];
-                // $parent_id = $item['parent_id'];
-                // $name = $item['name'];
-                // $description = $item['description'];
-                // $file_mime = $item['mime_type'];
-                // $fileContent = file_get_contents($url);
-                // list($mime, $extension) = explode('/', $file_mime);
-                // $filename = uniqid() .'.'. $extension;
-                // $pathForDb ='product_icon/'.$filename;
-                // if (!empty($fileContent)) {
-                //     Storage::disk('public')->put('product_icon/'.$filename, $fileContent);
-                // }
-                // DB::Table('my_product_features')->insert([
-                //     'my_product_id'=>$parent_id,
-                //     'title'=>$name,
-                //     'icon_path'=>$pathForDb,
-                //     'description'=>$description,
-                // ]);
-            // }
-            // die;
+        
             $this->setResponseCode(201);
             $this->apiResponse['message'] ='Product Sidebar Added successfully';
             $this->apiResponse['result'] = [];
@@ -898,77 +692,9 @@ public function productyoutubelink(Request $request)
         }else{
             DB::beginTransaction();
             try {            
-                // $data = $request->json()->all();
-                // foreach ($data as $item) {
-                //     $image_url = $item['image_url'];
-                //     $parent_id = $item['parent_id'];
-                //     $title = $item['title'];
-                //     $image_position = $item['image_position'];
-                //     $file_mime = $item['mime_type'];
-                //     $dataNew = $item['data'];
-                //     $fileContent = file_get_contents($image_url);
-                //     list($mime, $extension) = explode('/', $file_mime);
-                //     $filename = uniqid() .'.'. $extension;
-                //     $pathForDb ='product_images/'.$filename;
-                //     if (!empty($fileContent)) {
-                //         Storage::disk('public')->put('product_images/'.$filename, $fileContent);
-                //     }
-                //     foreach ($dataNew as $item) {
-                //         $sub_title = $item['sub_title'];
-                //         $description = $item['description'];
-                //         $icon_url = $item['icon_url'];
-                //         $file_mimeSub = $item['mime_type'];
-                //         $fileContentSub = file_get_contents($icon_url);
-                //         list($mime, $extension) = explode('/', $file_mimeSub);
-                //         $filenameS = uniqid() .'.'. $extension;
-                //         $pathForDbIcon ='product_icon/'.$filenameS;
-                //         if (!empty($fileContentSub)) {
-                //             Storage::disk('public')->put('product_icon/'.$filenameS, $fileContentSub);
-                //         }
-                        // DB::Table('my_product_specifications')->insert([
-                        //     'my_product_id'=>$parent_id,
-                        //     'title'=>$title,
-                        //     'sub_title'=>$pathForDb,
-                        //     'description'=>$description,
-                        //     'icon'=>$pathForDbIcon,
-                        //     'image_url'=>$pathForDb,
-                        //     'image_position'=>$image_position,
-                        // ]);
-                //     }
-                // }
+               
                 $data = $request->all();
-                // for ($i=0; $i < count($data['title']); $i++) { 
-                //    $file = isset($data['image'][$i]) ? $data['image'][$i] : null;
-                //    $title = $data['title'][$i];
-                //    $parent_id = $data['parent_id'][$i];
-                //    $image_position = $data['image_position'][$i];
-                //    if ($file) {
-                //        $filename = uniqid() .'.'. $file->getClientOriginalExtension();
-                //        $pathForDb = 'product_images/'.$filename;
-                //        $file->storeAs('public/product_images', $filename);
-                //    }
-                //    for ($j=0; $j < count($data['sub_title'][$i]); $j++) { 
-                //         $fileSub = isset($data['icon'][$i][$j]) ? $data['icon'][$i][$j] : null;
-                //         $description = $data['description'][$i][$j];
-                //         $sub_title = $data['sub_title'][$i][$j];
-                //         if ($fileSub) {
-                //             $filename = uniqid() .'.'. $fileSub->getClientOriginalExtension();
-                //             $pathForDbIcon = 'product_images/'.$filename;
-                //             $fileSub->storeAs('public/product_images', $filename);
-                //        }else{
-                //         $pathForDbIcon = null;
-                //        }
-                //        $response = DB::Table('my_product_specifications')->insert([
-                //             'my_product_id'=>$parent_id,
-                //             'title'=>$title,
-                //             'sub_title'=>$sub_title,
-                //             'description'=>$description,
-                //             'icon'=>$pathForDbIcon,
-                //             'image_url'=>$pathForDb,
-                //             'image_position'=>$image_position,
-                //         ]);
-                //    }
-                // }
+                
                 for ($i=0; $i < count($data['title']); $i++) { 
                     $file = isset($data['image'][$i]) ? $data['image'][$i] : null;
                     $title = $data['title'][$i];
@@ -1046,117 +772,13 @@ public function productyoutubelink(Request $request)
         }
         return $this->sendResponse();
     }
-//     public function getProductSpecification(string $id)
-// {
- 
-//     {
-//         $myproduct = DB::table('my_product_specifications')
-//             ->where('my_product_id', $id)
-//                 ->where('is_deleted', false)
-//                 ->get();
-            
-//         if (!$myproduct) {
-//             $this->setResponseCode(404);
-//             $this->apiResponse['message'] = 'Data not found';
-//             $this->apiResponse['status'] = false;
-//         } else {
-//             $this->setResponseCode(200);
-//             $this->apiResponse['message'] = 'Myproduct retrieved successfully';
-//             $this->apiResponse['result'] = $myproduct;
-//         }
-    
-//         return $this->sendResponse();
-//     }
-    
-// }
-// 
-// public function getProductSpecification(string $id)
-// {
-//     $myproduct = DB::table('my_product_specifications')
-//         ->where('my_product_id', $id)
-//         ->where('is_deleted', false)
-//         ->get();
-    
-//     if (!$myproduct->isEmpty()) {
-//         $formattedData = [
-//             'features' => []
-//         ];
-        
-//         $feature = [
-//             'id' => null,
-//             'my_product_id' => null,
-//             'image_url' => null,
-//             'title' => '',
-//             'imagePosition' => '',
-//             'subFeatures' => [],
-//         ];
-        
-//         foreach ($myproduct as $product) {
-//             $subFeature = [
-//                 'name' => $product->sub_title,
-//                 'description' => $product->description,
-//                 'icon' => $product->icon,
-//             ];
-            
-//             $feature['subFeatures'][] = $subFeature;
-            
-//             // Assign repetitive fields only once for the first iteration
-//             if ($feature['id'] === null) {
-//                 $feature['id'] = $product->my_product_id;
-//                 $feature['my_product_id'] = $product->my_product_id;
-//                 $feature['image_url'] = $product->image_url;
-//                 $feature['title'] = $product->title;
-//                 $feature['imagePosition'] = $product->image_position;
-//             }
-//         }
-        
-//         $formattedData['features'][] = $feature;
-        
-//         $this->setResponseCode(200);
-//         $this->apiResponse['message'] = 'Myproduct retrieved successfully';
-//         $this->apiResponse['result'] = $formattedData;
-//     } else {
-//         $this->setResponseCode(404);
-//         $this->apiResponse['message'] = 'Data not found';
-//         $this->apiResponse['status'] = false;
-//     }
 
-//     return $this->sendResponse();
-// }
 public function getProductSpecification(string $id)
 {
-    // $myproduct = DB::table('my_product_specifications')
-    //     ->where('my_product_id', $id)
-    //     ->where('is_deleted', false)
-    //     ->get();
+   
     $myproduct = MyProductSpecifications::with('subspecification')->where('my_product_id',$id)->where('is_deleted', false)->get();
     if (is_null($myproduct)) {
-        // $formattedData = [
-        //     'features' => []
-        // ];
-
-        // $feature = [
-        //     'id' => $myproduct[0]->id,
-        //     'my_product_id' => $myproduct[0]->my_product_id,
-        //     'image_url' => $myproduct[0]->image_url,
-        //     'title' => $myproduct[0]->title,
-        //     'imagePosition' => $myproduct[0]->image_position,
-        //     'subFeatures' => [],
-        // ];
-
-        // foreach ($myproduct as $product) {
-        //     if ($product->title === $feature['title']) {
-        //         $subFeature = [
-        //             'id' => $product->id,
-        //             'name' => $product->sub_title,
-        //             'description' => $product->description,
-        //             'icon' => $product->icon,
-        //         ];
-
-        //         $feature['subFeatures'][] = $subFeature;
-        //     }
-        // }
-
+     
         // $formattedData['features'][] = $feature;
         $this->setResponseCode(404);
         $this->apiResponse['message'] = 'Data not found';
@@ -1302,17 +924,7 @@ public function deleteGalleryImages(Request $request)
 public function getProductPreview(string $id)
 {
     try {
-        // $data = MyProduct::with([
-        //     'mainGallery',
-        //     'features',
-        //     'youtubelink',
-        //     'sliderGallery',
-        //     'specification',
-        //     'specification.subspecification',
-        //     'singleGallery',
-        //     'review',
-        //     'faq'
-        //     ])->find($id);
+     
 
         $getRelationalTable = DB::table('my_product_tablesequences')
             ->join('myproduct_sequneceorders','my_product_tablesequences.id', '=', 'myproduct_sequneceorders.sequence_id')
@@ -1409,38 +1021,132 @@ public function productReview(Request $request)
     return $this->sendResponse();
 }
 
-// public function getProductReview(Request $request ,$id)
-// {
-//     $perPage = $request->get('page_size', '');
-//     $page = $request->get('page', 1);
-//     $orderby = $request->get('orderby', 'desc');
-//     $search = $request->get('search', '');
+public function getProductReview(Request $request, $id)
+{
+    $perPage = $request->get('page_size', '');
+    $page = $request->get('page', 1);
+    $orderby = $request->get('orderby', 'desc');
+    $search = $request->get('search', '');
     
-//     if (empty($perPage)) {
-//         $perPage = $this->perPage;
-//     }
+    if (empty($perPage)) {
+        $perPage = $this->perPage;
+    }
     
-//    // $tableName = 'my_product_reviews';
-//     $columns = \DB::getSchemaBuilder()->getColumnListing('my_product_reviews');
-//     $columnsToSelect = array_diff($columns, ['created_at', 'updated_at','is_deleted']);
+    $tableName = 'my_product_reviews';
+    $columns = \DB::getSchemaBuilder()->getColumnListing($tableName);
+    $columnsToSelect = array_diff($columns, ['created_at', 'updated_at','is_deleted']);
     
-//     // $query = DB::table($tableName)
-//     //     ->where('is_deleted', false);
-    
-//     $productReview = DB::Table('my_product_reviews')->where('is_deleted',false)->where('my_product_id',$id)->get();
+    $query = DB::table('my_product_reviews')
+        ->where('is_deleted', false)
+        ->where('my_product_id', $id);
 
-//     if ($productReview) {
-//         $this->setResponseCode(200);
-//         $this->apiResponse['message'] = 'Product Review found';
-//         $this->apiResponse['result'] = $productReview;
-//     } else {
-//         $this->setResponseCode(404);
-//         $this->apiResponse['message'] = 'Product Review not found';
-//         $this->apiResponse['result'] = null;
-//     }
+    $total = $query->count();
 
-//     return $this->sendResponse();
-// }
+    $offset = $this->getOffset($page, $perPage);
+    $data = $query->offset($offset)
+        ->limit($perPage)
+        ->orderBy('created_at', $orderby)
+        ->get($columnsToSelect);
+
+    $pagination = $this->getPaginationFormate($total, $perPage, $page);
+    $result = $this->getDataWithPagination($data, $pagination);
+    
+    if ($data->isEmpty()) { // Check if the result is empty
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Product Review not found';
+        $this->apiResponse['result'] = null;
+    } else {
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'Product Review found';
+        $this->apiResponse['result'] = $result;
+    }
+
+    return $this->sendResponse();
+}
+
+public function getSingleProductReview(string $id)
+{
+    $returnData = MyProductReviews::find($id);
+
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not found';
+        $this->apiResponse['status'] = false;
+        $this->apiResponse['result'] = null;
+    } else {
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'Product review retrieved successfully';
+        $this->apiResponse['status'] = true;
+        $this->apiResponse['result'] = $returnData;
+    }
+
+    return $this->sendResponse();
+}
+public function updateProductReview(Request $request, $id)
+{
+   
+    $validator = Validator::make($request->all(), [
+        'user_name' => 'required',
+        'rating' => 'required|numeric|max:5',
+        'location' => 'required',
+        'review' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+        $this->setResponseCode(400);
+        $this->apiResponse['message'] = $validator->messages()->first();
+        $this->apiResponse['errors'] = $validator->errors();
+        $this->apiResponse['status'] = FALSE;
+
+    }
+else{
+    $user_name = $request->user_name;
+    $rating = $request->rating;
+    $location = $request->location;
+    $review = $request->review;
+
+    $existingReview = MyProductReviews::find($id);
+
+    if (!$existingReview) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Review not found .',
+        ], 404);
+    }
+
+ else{
+    $existingReview->update([
+        'user_name' => $user_name,
+        'rating' => $rating,
+        'location' => $location,
+        'review' => $review,
+    ]);
+}
+    $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'Product review retrieved successfully';
+        $this->apiResponse['status'] = true;
+        $this->apiResponse['result'] = $existingReview;
+}
+return $this->sendResponse();
+}
+public function deleteProductReview(string $id)
+{
+    $returnData = MyProductReviews::find($id);
+//    print_r($returnData);
+//    die;
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not founded';
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'myproduct deleted successfully';
+        $this->apiResponse['result'] = [];
+    }
+    return $this->sendResponse();
+}
 
 private function compareProductFeatures($mainProductId){
         
