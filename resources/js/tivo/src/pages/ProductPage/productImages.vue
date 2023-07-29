@@ -6,7 +6,7 @@
               <!-- {{ console.log() }} -->
               <img
                   v-if="item.image_path && item.image_path.length > 0"
-                  :src="`http://localhost:8000/storage/${item.image_path}`"
+                  :src="`http://localhost:8001/storage/${item.image_path}`"
                   :alt="item.image_name ? item.image_name : 'Product Image'"
               />
           </div>

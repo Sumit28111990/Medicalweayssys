@@ -30,7 +30,7 @@
                                             item.icon_path &&
                                             item.icon_path.length > 0
                                         "
-                                        :src="`http://localhost:8000/storage/${item.icon_path}`"
+                                        :src="`http://localhost:8001/storage/${item.icon_path}`"
                                         :alt="
                                             item.image_name
                                                 ? item.image_name
