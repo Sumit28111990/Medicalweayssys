@@ -1192,6 +1192,23 @@ public function deleteMyProductFeature(string $id)
     }
     return $this->sendResponse();
 }
+public function ravi(string $id)
+{
+    $returnData = MyProductFeatures::find($id);
+
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not founded';
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'myproduct deleted successfully';
+        $this->apiResponse['result'] = [];
+    }
+    return $this->sendResponse();
+}
 }
 
 
