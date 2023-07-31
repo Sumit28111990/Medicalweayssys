@@ -921,58 +921,61 @@ public function deleteGalleryImages(Request $request)
     }    
     return $this->sendResponse();
 }
+
+
 public function getProductPreview(string $id)
 {
     try {
-     
-
         $getRelationalTable = DB::table('my_product_tablesequences')
-            ->join('myproduct_sequneceorders','my_product_tablesequences.id', '=', 'myproduct_sequneceorders.sequence_id')
+            ->join('myproduct_sequneceorders', 'my_product_tablesequences.id', '=', 'myproduct_sequneceorders.sequence_id')
             ->orderBy('myproduct_sequneceorders.order_id')
             ->select('my_product_tablesequences.table')
             ->get();
-            
-        $orderedRelations =[];
-        foreach ($getRelationalTable as  $value) {
-            array_push($orderedRelations,$value->table);
+
+        $orderedRelations = [];
+        foreach ($getRelationalTable as $value) {
+            array_push($orderedRelations, $value->table);
         }
-        
+
         $dataQuery = MyProduct::query();
-     
+
         foreach ($orderedRelations as $orderBy) {
-                $dataQuery->with([$orderBy]);
+            $dataQuery->with([$orderBy => function ($query) {
+                $query->where('is_deleted', false);
+            }]);
         }
-       
-        $data = $dataQuery->find($id);
-  
+
+        $data = $dataQuery->where('is_deleted', false)->find($id);
+
         $compareData = [];
         $getCompareProductId = $this->compareProductFeatures($id);
         foreach ($getCompareProductId as $value) {
-        $dataNN = $this->getProductF($value);
-        array_push($compareData,$dataNN);
+            $dataNN = $this->getProductF($value);
+            array_push($compareData, $dataNN);
         }
-      
+
         if (is_null($data)) {
             $this->setResponseCode(404);
-            $this->apiResponse['message'] = 'Data not founded';
-            $this->apiResponse['status'] = FALSE;
-
-        }else{
+            $this->apiResponse['message'] = 'Data not found';
+            $this->apiResponse['status'] = false;
+        } else {
             $data['compareProduct'] = $compareData;
             $this->setResponseCode(200);
-            $this->apiResponse['message'] ='Product Data get successfully';
+            $this->apiResponse['message'] = 'Product Data get successfully';
             $this->apiResponse['result'] = $data;
         }
+        $imageUrl = asset('storage/' . $image_name);
         return $this->sendResponse();
-
     } catch (\Throwable $th) {
-  
         $this->setResponseCode(500);
         $this->apiResponse['message'] = $th->getMessage();
-        $this->apiResponse['status'] = FALSE;
+        $this->apiResponse['status'] = false;
         return $this->sendResponse();
     }
-}   
+}
+
+
+
 public function productReview(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -1132,8 +1135,7 @@ return $this->sendResponse();
 public function deleteProductReview(string $id)
 {
     $returnData = MyProductReviews::find($id);
-//    print_r($returnData);
-//    die;
+
     if (is_null($returnData)) {
         $this->setResponseCode(404);
         $this->apiResponse['message'] = 'Data not founded';
