@@ -12,10 +12,9 @@
             >
                 <div class="image-container">
                     <img
-                    :src="`http://localhost:8001/storage/${item.image_url}`"
+                    :src="this.getFullUrl(item.image_url)"
                         :alt="item.title"
                     />
-                    <!-- {{ console.log(`http://localhost:8001/storage/${item.image_url}`) }} -->
                 </div>
                 <div class="data-container">
                     <span class="item-title">{{ item.title }}</span>
@@ -40,7 +39,7 @@
                                             innerItem.icon &&
                                             innerItem.icon.length > 0
                                         "
-                                        :src="`http://localhost:8001/storage/${innerItem.icon}`"
+                                        :src="this.getFullUrl(innerItem.icon)"
                                         :alt="
                                             innerItem.image_name
                                                 ? innerItem.image_name
@@ -93,6 +92,7 @@
 </template>
 
 <script>
+import config from "../../config";
 export default {
     props: {
         specification: Array,
@@ -103,6 +103,9 @@ export default {
         };
     },
     methods: {
+        getFullUrl(urlnew){
+            return config.imageUrl+urlnew;
+        },
         open3(id) {
             if (this.show3 === id) {
                 this.show3 = null;

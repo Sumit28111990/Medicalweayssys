@@ -240,6 +240,6 @@ export default {
     font-size: 15px;
 }
 .sideBarMarginTop{
-    margin-top: 125px;
+    margin-top: 40px;
 }
 </style>

@@ -6,7 +6,7 @@
               <!-- {{ console.log() }} -->
               <img
                   v-if="item.image_path && item.image_path.length > 0"
-                  :src="`http://localhost:8001/storage/${item.image_path}`"
+                  :src="getFullUrl(item.image_path)"
                   :alt="item.image_name ? item.image_name : 'Product Image'"
               />
           </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import config from "../../config";
 export default {
   name: "Benefits",
   props: {
@@ -24,6 +25,11 @@ export default {
           default: () => [],
       },
   },
+  methods: {
+        getFullUrl(urlnew){
+            return config.imageUrl+urlnew;
+        }
+    },
 };
 </script>
 

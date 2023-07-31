@@ -138,7 +138,7 @@ export default {
 }
 
 .swiper-slide {
-    flex: 0 0 294px;
+    flex: 0 0 286px;
 }
 .swiper-container::-webkit-scrollbar {
     width: 0;

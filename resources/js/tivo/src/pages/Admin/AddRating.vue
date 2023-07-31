@@ -7,75 +7,40 @@
                         <form @submit.prevent="submitForm">
                             <div>
                                 <label for="username">UserName</label>
-                                <input
-                                    class="form-control"
-                                    type="text"
-                                    id="username"
-                                    placeholder="Enter Username"
-                                    v-model="ratingObject.userName"
-                                />
-                                <span
-                                    class="text-danger"
-                                    v-if="errors.userName !== ''"
-                                >
+                                <input class="form-control" type="text" id="username" placeholder="Enter Username"
+                                    v-model="ratingObject.userName" />
+                                <span class="text-danger" v-if="errors.userName !== ''">
                                     {{ errors.userName }}
                                 </span>
                             </div>
                             <div>
                                 <label for="rating">Rating</label>
-                                <input
-                                    class="form-control"
-                                    type="number"
-                                    id="rating"
+                                <input class="form-control" type="number" id="rating"
                                     placeholder="Enter Product Rating Only Integer Value"
-                                    v-model="ratingObject.ratingNumber"
-                                />
-                                <span
-                                    class="text-danger"
-                                    v-if="errors.ratingNumber !== ''"
-                                >
+                                    v-model="ratingObject.ratingNumber" />
+                                <span class="text-danger" v-if="errors.ratingNumber !== ''">
                                     {{ errors.ratingNumber }}
                                 </span>
                             </div>
                             <div>
                                 <label for="location">Location</label>
-                                <input
-                                    class="form-control"
-                                    type="text"
-                                    id="location"
-                                    placeholder="Enter Location"
-                                    v-model="ratingObject.location"
-                                />
-                                <span
-                                    class="text-danger"
-                                    v-if="errors.location !== ''"
-                                >
+                                <input class="form-control" type="text" id="location" placeholder="Enter Location"
+                                    v-model="ratingObject.location" />
+                                <span class="text-danger" v-if="errors.location !== ''">
                                     {{ errors.location }}
                                 </span>
                             </div>
 
                             <div>
                                 <label for="desc">Review</label>
-                                <textarea
-                                    class="form-control"
-                                    placeholder="Enter Review"
-                                    v-model="ratingObject.review"
-                                    name="w3review"
-                                    rows="4"
-                                    cols="50"
-                                ></textarea>
-                                <span
-                                    class="text-danger"
-                                    v-if="errors.review !== ''"
-                                >
+                                <textarea class="form-control" placeholder="Enter Review" v-model="ratingObject.review"
+                                    name="w3review" rows="4" cols="50"></textarea>
+                                <span class="text-danger" v-if="errors.review !== ''">
                                     {{ errors.review }}
                                 </span>
                             </div>
 
-                            <button
-                                class="mt-4 ml-4 btn btn-primary radius"
-                                type="submit"
-                            >
+                            <button class="mt-4 ml-4 btn btn-primary radius" type="submit">
                                 Submit
                             </button>
                         </form>
@@ -102,50 +67,35 @@
                     <td class="capitalize">{{ review.user_name }}</td>
                     <td class="capitalize">{{ review.rating }}</td>
                     <td class="capitalize">{{ review.location }}</td>
-                    <td class="capitalize">{{ review.review }}</td>
+                    <td class="capitalize">
+                        {{ getFirstFiveWords(review.review) }}
+                    </td>
                     <td>
-                        <i
-                            className="fa fa-pencil-square-o fa-lg"
-                            @click="editReview(index)"
-                        ></i>
+                        <i className="fa fa-pencil-square-o fa-lg" @click="editReview(index)"></i>
 
-                        <i
-                            className="fa fa-trash-o fa-lg m-l-5 "
-                            @click="deleteReview(index)"
-                        ></i>
+                        <i className="fa fa-trash-o fa-lg m-l-5 " @click="deleteReview(index)"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div v-if="reviews != null">
             <ul class="pagination justify-content-end pagination-primary">
-                <li
-                    style="margin-top: 2px; margin-right: 5px"
-                    class="page-item d-flex"
-                >
-                    <span class="mt-3 mx-1" style="color: black"
-                        >Total Count
-                        <button
-                            style="
+                <li style="margin-top: 2px; margin-right: 5px" class="page-item d-flex">
+                    <span class="mt-3 mx-1" style="color: black">Total Count
+                        <button style="
                                 border: none;
                                 margin-top: 7px;
                                 border-radius: 7px;
                                 color: white;
                                 background: rgb(13, 110, 253);
                                 height: 30px;
-                            "
-                        >
+                            ">
                             {{ pagination.total }}
-                        </button></span
-                    >
+                        </button></span>
                 </li>
                 <li>
-                    <Paginations
-                        :totalCount="pagination.total"
-                        :currentPage="pagination.current_page"
-                        :pageSize="pagination.per_page"
-                        @page-change="handlePageChange"
-                    />
+                    <Paginations :totalCount="pagination.total" :currentPage="pagination.current_page"
+                        :pageSize="pagination.per_page" @page-change="handlePageChange" />
                 </li>
             </ul>
         </div>
@@ -310,27 +260,27 @@ export default {
 
             let token = localStorage.getItem("token");
             if (confirm("Do you really want to delete?")) {
-            axios
-                .delete(
-                    `${config.apiUrl}/api/my-product-delete-review/${reviewId}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                )
-                .then((res) => {
-                  this.getAllReviews(this.parentId)
-                    // this.reviews.splice(index, 1);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-      },
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/my-product-delete-review/${reviewId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        this.getAllReviews(this.parentId)
+                        // this.reviews.splice(index, 1);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        },
 
         getAllReviews(id) {
-        
+
             let token = localStorage.getItem("token");
 
             axios
@@ -340,10 +290,10 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res,'res')
+                    console.log(res, 'res')
                     this.reviews = res.data.result.data;
                     this.pagination = res.data.result.pagination;
-                    
+
                 })
                 .catch((error) => {
                     console.error(error);
@@ -351,7 +301,7 @@ export default {
         },
 
         handlePageChange(page) {
-          console.log(page,'fffffpage')
+            console.log(page, 'fffffpage')
             this.pagination.current_page = page;
             let token = localStorage.getItem("token");
             if (this.filterQuery) {
@@ -373,7 +323,7 @@ export default {
                         console.error(error);
                     });
             } else {
-        
+
                 axios
                     .get(
                         `${config.apiUrl}/api/my-product-get-review/${this.parentId}/?page=${this.pagination.current_page}`,
@@ -386,10 +336,10 @@ export default {
                     )
                     .then((res) => {
                         // console.log("Error", res);
-                
+
                         // this.apiResFormList = res.data.result.data;
                         this.reviews = res.data.result.data;
-                   
+
                     })
                     .catch((error) => {
                         console.error(error);
@@ -399,7 +349,18 @@ export default {
             console.log("Requested page:", page);
         },
     },
-    
+    computed: {
+        getFirstFiveWords() {
+            return (review) => {
+                const words = review.split(" ");
+                // console.log(words,'words')
+                return words.length > 5
+                    ? words.slice(0, 5).join(" ") + "..."
+                    : review;
+            };
+        },
+    },
+
     mounted() {
         const url = new URL(window.location.href);
         const id = url.pathname.split("/").pop();
@@ -419,6 +380,7 @@ export default {
 .radius {
     border-radius: 22px !important;
 }
+
 .capitalize {
     text-transform: capitalize !important;
 }

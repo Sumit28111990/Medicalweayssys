@@ -9,7 +9,7 @@
                 >
                     <div class=""  v-if="index === 0">
                         <img
-                            :src="`http://localhost:8001/storage/${item.image_path}`"
+                            :src="this.getFullUrl(item.image_path)"
                             :alt="`Product Image`"
                             class="SlderImage"
                             :id="`product-slider`"
@@ -40,7 +40,7 @@
                     >
                         <img
                             v-if="item.image_path && item.image_path.length > 0"
-                            :src="`http://localhost:8001/storage/${item.image_path}`"
+                            :src="this.getFullUrl(item.image_path)"
                             :alt="index"
                             class="thumbnail-image"
                             @click="selectThumbnail(index, item)"
@@ -83,14 +83,16 @@ export default {
     },
 
     methods: {
+        getFullUrl(urlnew){
+            return config.imageUrl+urlnew;
+        },
         selectThumbnail(index, item) {
-            console.log("888888888888", item);
             this.storeSlderImage = item;
             this.selectedThumbnail = index;
 
             let slider = document.getElementById("product-slider");
             console.log(" let slider", slider);
-            slider.src = "http://localhost:8001/storage/" + item.image_path;
+            slider.src = "this.getFullUrl" + item.image_path;
         },
         selectNextThumbnail() {
             this.selectedThumbnail =
