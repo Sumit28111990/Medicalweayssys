@@ -964,7 +964,7 @@ public function getProductPreview(string $id)
             $this->apiResponse['message'] = 'Product Data get successfully';
             $this->apiResponse['result'] = $data;
         }
-        $imageUrl = asset('storage/' . $image_name);
+    
         return $this->sendResponse();
     } catch (\Throwable $th) {
         $this->setResponseCode(500);
@@ -1175,6 +1175,23 @@ private function getProductF($id){
         return $data;
 }
 
+public function deleteMyProductFeature(string $id)
+{
+    $returnData = MyProductFeatures::find($id);
+
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not founded';
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'myproduct deleted successfully';
+        $this->apiResponse['result'] = [];
+    }
+    return $this->sendResponse();
+}
 }
 
 

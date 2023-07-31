@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('get-my-product-assign-feature/{id}', [MyProductController::class, 'getMultifeaturesProductAssign']);
     Route::get('get-my-product-slider-single/{id}/{type}', [MyProductController::class, 'getuploadGallery']);
     Route::get('get-my-product-feature/{id}', [MyProductController::class, 'getFeatures']);
+    Route::delete('delete-my-product-feature/{id}', [MyProductController::class, 'deleteMyProductFeature']);
     Route::get('my-product-get-specification/{id}', [MyProductController::class, 'getProductSpecification']);
     Route::post('my-product-specification', [MyProductController::class, 'productSpecification']);
     Route::get('my-product-get-sequnece',[MyProductController::class, 'getProductSequence']);
