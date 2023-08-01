@@ -13,7 +13,7 @@
     }, 
     {
       "path":"/admin",
-      "title": "Admin ",
+      "title": "New Product ",
       "icon": "user",
       "type": "link",
       "badgeType": "light-primary",
