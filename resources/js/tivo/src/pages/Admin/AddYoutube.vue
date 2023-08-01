@@ -114,7 +114,7 @@ export default {
                     .then((res) => {
                         console.log(res.data);
                         // this.$router.replace("/admin"); 
-                        window.location.reload();
+                    window.location.reload();
                         // Handle response
                         // this.$router.push({ name: AddFeatureVue});
                     })
