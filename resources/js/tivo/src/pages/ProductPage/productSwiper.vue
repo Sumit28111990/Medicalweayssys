@@ -92,7 +92,7 @@ export default {
 
             let slider = document.getElementById("product-slider");
             console.log(" let slider", slider);
-            slider.src = "this.getFullUrl" + item.image_path;
+            slider.src = this.getFullUrl(item.image_path);
         },
         selectNextThumbnail() {
             this.selectedThumbnail =
