@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('my-product-faq', [MyProductController::class, 'productFAQ']);
     Route::post('my-product-sidebar',[MyProductController::class, 'ProductSideBar']);
     Route::get('my-product-get-sidebar/{id}',[MyProductController::class, 'getproductSideBar']);
+    Route::delete('delete-my-product-sidebar/{id}',[MyProductController::class, 'deleteMyProductSidebar']);
     Route::post('my-product-multi-feat',[MyProductController::class, 'Multifeatures']);
     Route::post('my-product-add-new-multi-feat',[MyProductController::class, 'AddNewMultiFeature']);
     Route::get('my-product-getmulti-features',[MyProductController::class, 'getMultifeatures']);
@@ -58,9 +59,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('my-product-youtube-link',[MyProductController::class, 'productyoutubelink']);
     Route::get('my-product-get-youtube/{id}',[MyProductController::class, 'getyoutubelink']);
     Route::get('get-my-product-faq/{id}', [MyProductController::class, 'getProductFAQ']);
+    Route::delete('delete-my-product-faq/{id}', [MyProductController::class, 'deleteMyProductFaq']);
     Route::get('get-my-product-assign-feature/{id}', [MyProductController::class, 'getMultifeaturesProductAssign']);
     Route::get('get-my-product-slider-single/{id}/{type}', [MyProductController::class, 'getuploadGallery']);
     Route::get('get-my-product-feature/{id}', [MyProductController::class, 'getFeatures']);
+    Route::delete('delete-my-product-feature/{id}', [MyProductController::class, 'deleteMyProductFeature']);
     Route::get('my-product-get-specification/{id}', [MyProductController::class, 'getProductSpecification']);
     Route::post('my-product-specification', [MyProductController::class, 'productSpecification']);
     Route::get('my-product-get-sequnece',[MyProductController::class, 'getProductSequence']);

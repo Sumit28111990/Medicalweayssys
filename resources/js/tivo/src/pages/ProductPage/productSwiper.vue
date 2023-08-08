@@ -92,7 +92,7 @@ export default {
 
             let slider = document.getElementById("product-slider");
             console.log(" let slider", slider);
-            slider.src = "this.getFullUrl" + item.image_path;
+            slider.src = this.getFullUrl(item.image_path);
         },
         selectNextThumbnail() {
             this.selectedThumbnail =
@@ -118,8 +118,8 @@ export default {
     border: 2px solid #007bff;
 }
 .thumbnail-image {
-    width: 75px !important;
-    height: auto;
+    width: 85px !important;
+    height: 70px !important;
     cursor: pointer;
     opacity: 0.6;
 }

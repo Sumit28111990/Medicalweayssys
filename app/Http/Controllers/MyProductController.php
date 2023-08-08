@@ -14,6 +14,8 @@ use App\Traits\RequestTraits;
 use App\Traits\PaginationTraits;
 use App\Models\MyProductSequence;
 use App\Models\MyProductReviews;
+use App\Models\MyProductSideBar;
+use App\Models\MyProductFAQs;   
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\BaseController as BaserevController;
@@ -288,7 +290,24 @@ public function index(Request $request)
         }
         return $this->sendResponse();
     }
-
+    public function deleteMyProductFeature(string $id)
+    {
+        $returnData = MyProductFeatures::find($id);
+   
+        if (is_null($returnData)) {
+            $this->setResponseCode(404);
+            $this->apiResponse['message'] = 'Data not founded';
+            $this->apiResponse['status'] = FALSE;
+        } else {
+            $returnData->is_deleted = TRUE;
+            $returnData->save();
+            $this->setResponseCode(200);
+            $this->apiResponse['message'] = 'myproduct Features deleted successfully';
+            $this->apiResponse['result'] = [];
+        }
+        return $this->sendResponse();
+    }
+    
     public function uploadGallery(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -366,6 +385,23 @@ public function index(Request $request)
             
             $this->setResponseCode(201);
             $this->apiResponse['message'] ='Product FAQ Added successfully';
+            $this->apiResponse['result'] = [];
+        }
+        return $this->sendResponse();
+    }
+    public function deleteMyProductFaq(string $id)
+    {
+        $returnData = MyProductFAQs::find($id);
+    
+        if (is_null($returnData)) {
+            $this->setResponseCode(404);
+            $this->apiResponse['message'] = 'Data not founded';
+            $this->apiResponse['status'] = FALSE;
+        } else {
+            $returnData->is_deleted = TRUE;
+            $returnData->save();
+            $this->setResponseCode(200);
+            $this->apiResponse['message'] = 'myproduct faq deleted successfully';
             $this->apiResponse['result'] = [];
         }
         return $this->sendResponse();
@@ -468,6 +504,7 @@ public function index(Request $request)
         }
         return $this->sendResponse();
     }
+    
 
 
     public function getproductSideBar(string $id)
@@ -490,6 +527,23 @@ public function index(Request $request)
             return $this->sendResponse();
         }
     }
+    public function deleteMyProductSidebar(string $id)
+{
+    $returnData = MyProductSideBar::find($id);
+
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not founded';
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'myproduct Sidebar deleted successfully';
+        $this->apiResponse['result'] = [];
+    }
+    return $this->sendResponse();
+}
     public function productAssingFeatures(Request $request)
 {
     $validator = Validator::make($request->all(), [

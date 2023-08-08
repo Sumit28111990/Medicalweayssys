@@ -4,32 +4,59 @@
             <span class="blue-c"> Frozen 2<sup class="sup-tma">™</sup></span>
             Cold Plunge Features
         </div>
-        <div class="row default-according style-1 faq-accordion accor" id="accordionoc">
+        <div
+            class="row default-according style-1 faq-accordion accor"
+            id="accordionoc"
+        >
             <div class="col-xl-12">
                 <div class="bottom-gap" v-for="item in features" :key="item.id">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0" style="display: flex">
-                                <button class="btn btn-link collapsed image-toggle" data-bs-toggle="collapse"
-                                    :data-bs-target="`#collapseicon${item.id}`" :aria-expanded="activeItem === item.id
+                                <button
+                                    class="btn btn-link collapsed image-toggle"
+                                    data-bs-toggle="collapse"
+                                    :data-bs-target="`#collapseicon${item.id}`"
+                                    :aria-expanded="
+                                        activeItem === item.id
                                             ? 'true'
                                             : 'false'
-                                        " :aria-controls="`collapseicon${item.id}`" @click="toggleAccordion(item.id)">
-                                    <img v-if="item.icon_path &&
-                                        item.icon_path.length > 0
-                                        " :src="this.getFullUrl(item.icon_path)" :alt="item.image_name
-            ? item.image_name
-            : 'Product Image'
-        " class="featureImage" />
+                                    "
+                                    :aria-controls="`collapseicon${item.id}`"
+                                    @click="toggleAccordion(item.id)"
+                                >
+                                    <img
+                                        v-if="
+                                            item.icon_path &&
+                                            item.icon_path.length > 0
+                                        "
+                                        :src="this.getFullUrl(item.icon_path)"
+                                        :alt="
+                                            item.image_name
+                                                ? item.image_name
+                                                : 'Product Image'
+                                        "
+                                        class="featureImage"
+                                    />
                                 </button>
-                                <span class="tittle" @click="open3(item.id)" :aria-expanded="show3 === item.id ? 'true' : 'false'
-                                    " :aria-controls="`collapseicon${item.id}`">
+                                <span
+                                    class="tittle"
+                                    @click="open3(item.id)"
+                                    :aria-expanded="
+                                        show3 === item.id ? 'true' : 'false'
+                                    "
+                                    :aria-controls="`collapseicon${item.id}`"
+                                >
                                     {{ item.title }}
                                 </span>
                             </h5>
                         </div>
-                        <div class="collapse" :id="`collapseicon${item.id}`" data-bs-parent="#accordionoc"
-                            :class="show3 === item.id ? 'show' : ''">
+                        <div
+                            class="collapse"
+                            :id="`collapseicon${item.id}`"
+                            data-bs-parent="#accordionoc"
+                            :class="show3 === item.id ? 'show' : ''"
+                        >
                             <div class="card-body">
                                 {{ item.description }}
                             </div>
@@ -116,5 +143,9 @@ export default {
 .featureImage {
     max-width: 53px;
     margin-top: 0px;
+}
+.default-according.style-1 button[aria-expanded="false"]:before {
+    content: "\eb73" !important;
+    font-family: IcoFont;
 }
 </style>

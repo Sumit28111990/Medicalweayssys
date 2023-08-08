@@ -78,4 +78,8 @@ export default {
 .bottom-gap {
     margin-bottom: 10px;
 }
+.default-according.style-1 button[aria-expanded=false]:before {
+    content: "\eb73" !important;
+    font-family: IcoFont;
+}
 </style>

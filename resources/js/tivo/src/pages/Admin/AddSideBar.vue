@@ -49,7 +49,7 @@
                             <button
                                 type="button"
                                 class="btn marginLeft radius"
-                                @click="removeOneTitle(index)"
+                                @click="removeOneTitle(index,feature.idd)"
                                 v-if="index > 0"
                             >
                                 Remove
@@ -110,9 +110,30 @@ export default {
     },
 
     methods: {
-       
-        removeOneTitle(index) {
-            this.features.splice(index, 1);
+        removeOneTitle(index, idd) {
+            if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
+
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-sidebar/${idd}`,
+
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
 
         handleImageUpload(event, index) {
@@ -136,26 +157,26 @@ export default {
             );
         },
         removeImage(index) {
-        console.log(index,'index')
+            console.log(index, "index");
 
-      this.features[index].image = null;
-      this.imagePreview[index] = null;
-      const imagePath = this.features[index].url;
-      console.log(imagePath,'image path ')
-      const fileName = imagePath.split("/").pop();
+            this.features[index].image = null;
+            this.imagePreview[index] = null;
+            const imagePath = this.features[index].url;
+            console.log(imagePath, "image path ");
+            const fileName = imagePath.split("/").pop();
             console.log("Image file name:", fileName);
 
             const fullPath = "product_images/" + fileName;
             console.log("Full image path:", fullPath);
             const object = {
-                 path: fullPath,
-          };
-          console.log(object, "removed data");
-          const dataString = JSON.stringify(object);
-          console.log(dataString)
-      
-        this.features[index].url = null;
-    },
+                path: fullPath,
+            };
+            console.log(object, "removed data");
+            const dataString = JSON.stringify(object);
+            console.log(dataString);
+
+            this.features[index].url = null;
+        },
 
         submitForm() {
             const url = new URL(window.location.href);
@@ -311,7 +332,7 @@ img {
     margin-bottom: 10px;
 }
 
-button[type="submit"]{
+button[type="submit"] {
     padding: 10px 20px;
     /* background-color: #007bff; */
     color: white;
@@ -327,10 +348,10 @@ button[type="button"]:hover {
 .marginLeft {
     margin-left: 765px !important;
 }
-.ml-4{
+.ml-4 {
     margin-left: 4px;
 }
-.radius{
-    border-radius: 22px !important
+.radius {
+    border-radius: 22px !important;
 }
 </style>

@@ -1,11 +1,19 @@
 <template>
     <Breadcrumbs main="Product" title="Product Details" />
+
     <div class="container-fluid">
+        <img
+            class="backButton"
+            src="../../assets/images/logo/arrow-left.svg"
+            alt="backbutton"
+            @click="backButton()"
+        />
+
         <div class="row product-page-main p-0">
             <productSwiper :mapData="mapData" :imageData="imageData" />
         </div>
         <div class="col-md-12 row">
-            <div class="col-md-8 mt-4   ">
+            <div class="col-md-8 mt-4">
                 <div class="row product-page-main p-0">
                     <productFeature :features="features" />
                     <!-- {{ console.log(fetchdata.main_gallery, "dddddddddddddddddd") }} -->
@@ -19,7 +27,7 @@
         </div>
         <div class="m-4">
             <div class="row product-page-main p-0">
-                <ProductTable  :compareProduct="compareProduct"/>
+                <ProductTable :compareProduct="compareProduct" />
             </div>
         </div>
         <div class="m-4">
@@ -54,7 +62,7 @@
                     <productImages :single_gallery="single_gallery" />
                 </div>
             </div>
-           
+
             <div class="m-8">
                 <div class="row product-page-main p-0">
                     <productCaraousel :review="review" />
@@ -84,7 +92,6 @@ import breadCrumbs from "../../layout/breadCrumbs.vue";
 import { ref, onMounted } from "vue";
 import config from "../../config";
 
-
 export default {
     components: {
         breadCrumbs,
@@ -97,7 +104,7 @@ export default {
         productCaraousel,
         Faq,
         Sidebar,
-        productSliderImages
+        productSliderImages,
     },
     data() {
         return {
@@ -108,14 +115,17 @@ export default {
             faq: "",
             specification: "",
             single_gallery: "",
-            sidebar:'',
-            compareProduct:'',
-            slider_gallery:"",
-            review:"",
+            sidebar: "",
+            compareProduct: "",
+            slider_gallery: "",
+            review: "",
         };
     },
 
     methods: {
+        backButton() {
+            this.$router.replace(`/admin`);
+        },
         getFormDataW(id) {
             console.log("deepaktiwari", id);
             let token = localStorage.getItem("token");
@@ -127,19 +137,19 @@ export default {
                     },
                 })
                 .then((response) => {
-                    console.log("raju", response.data.result);
+                    // console.log("raju", response.data.result);
                     this.mapData = response.data.result;
-                    console.log("999999999", response.data.result);
+                    // console.log("999999999", response.data.result);
                     const imagee = [];
                     const featuresData = [];
                     const youtubelink = [];
                     const faq = [];
                     const specification = [];
                     const single_gallery = [];
-                    const sidebar=[]
-                    const compareProduct=[]
-                    const slider_gallery=[]
-                    const review=[]
+                    const sidebar = [];
+                    const compareProduct = [];
+                    const slider_gallery = [];
+                    const review = [];
                     this.mapData.main_gallery.forEach((item) => {
                         imagee.push(item);
                         // console.log('consoleee',item);
@@ -160,7 +170,7 @@ export default {
                         specification.push(item);
                         // console.log('consoleee',item);
                     });
-                
+
                     this.mapData.single_gallery.forEach((item) => {
                         single_gallery.push(item);
                         // console.log("99999999999", item);
@@ -173,14 +183,14 @@ export default {
                         compareProduct.push(item);
                         // console.log("99999999999", item);
                     });
-                    
+
                     this.mapData.slider_gallery.forEach((item) => {
                         slider_gallery.push(item);
                         // console.log(slider_gallery,'ddd')
                     });
                     this.mapData.review.forEach((item) => {
                         review.push(item);
-                        console.log("review", item);
+                        // console.log("review", item);
                     });
 
                     // console.log(imagee[0]);
@@ -193,7 +203,7 @@ export default {
                     this.sidebar = sidebar;
                     this.compareProduct = compareProduct;
                     this.slider_gallery = slider_gallery;
-                    this.review=review
+                    this.review = review;
                     // console.log( this.compareProduct,'pratik');
                     // console.log("data.result", this.mapData.main_gallery[0]);
                     // if (res.data.result.length == 0) {
@@ -239,7 +249,10 @@ export default {
     text-align: center;
     font-size: 15px;
 }
-.sideBarMarginTop{
+.sideBarMarginTop {
     margin-top: 40px;
+}
+.backButton {
+    margin-bottom: 10px;
 }
 </style>

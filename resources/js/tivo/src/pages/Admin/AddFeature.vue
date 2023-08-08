@@ -5,6 +5,7 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
+           
                             <div>
                                 <input
                                     type="hidden"
@@ -86,7 +87,7 @@
                             <button
                                 class="marginLeft btn radius removeButton" 
                                 type="button"
-                                @click="removeOneTilte(index)"
+                                @click="removeOneTilte(index,feature.idd)"
                                 v-if="index > 0"
                             >
                                 Remove
@@ -154,9 +155,32 @@ export default {
         };
     },
     methods: {
-        removeOneTilte(index) {
-            console.log(index, "index");
-            this.features.splice(index, 1);
+        
+        removeOneTilte(index,idd) {
+            if(confirm(`Are you sure you want to remove the Feature?`)){  this.features.splice(index, 1);
+            let token = localStorage.getItem("token");
+
+axios
+    .delete(
+        `${config.apiUrl}/api/delete-my-product-feature/${idd}`,
+        
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            
+            },
+        }
+    )
+    .then((res) => {
+        console.log("Error", res);
+        // this.$router.replace("/admin");
+        // window.location.reload();
+    })
+    .catch((error) => {
+        console.error(error);
+    })}
+           
+           
         },
 
         cancelAdd() {
@@ -416,4 +440,5 @@ button[type="submit"]:hover {
     border-radius: 4px;
     cursor: pointer;
 } */
+
 </style>
