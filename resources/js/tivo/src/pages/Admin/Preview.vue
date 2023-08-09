@@ -7,7 +7,7 @@
             src="../../assets/images/logo/arrow-left.svg"
             alt="backbutton"
             @click="backButton()"
-        />
+        /> 
 
         <div class="row product-page-main p-0">
             <productSwiper :mapData="mapData" :imageData="imageData" />
