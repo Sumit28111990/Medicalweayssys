@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
-                        {{ features }}
+                        <!-- {{ features }} -->
                         <div v-for="(feature, index) in features" :key="index">
                             <div>
                                 <label for="name"

@@ -16,9 +16,9 @@
                                 <button
                                     class="btn btn-link collapsed image-toggle"
                                     data-bs-toggle="collapse"
-                                    :data-bs-target="`#collapseicon${item.id}`"
+                                   
                                     :aria-expanded="
-                                        activeItem === item.id
+                                        show3 === item.id
                                             ? 'true'
                                             : 'false'
                                     "
@@ -41,7 +41,7 @@
                                 </button>
                                 <span
                                     class="tittle"
-                                    @click="open3(item.id)"
+                                    @click="toggleAccordion(item.id)"
                                     :aria-expanded="
                                         show3 === item.id ? 'true' : 'false'
                                     "
@@ -93,7 +93,7 @@ export default {
     },
 
     methods: {
-        open3(id) {
+        toggleAccordion(id) {
             if (this.show3 === id) {
                 this.show3 = null;
             } else {
