@@ -5,7 +5,6 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
-                      
                             <div>
                                 <input type="hidden" v-model="feature.idd" />
 
@@ -82,7 +81,7 @@
                             <button
                                 class="mt-4 btn btn-primary ml-4 removeMoreMargin"
                                 v-if="index > 0"
-                                @click="removeMore(index,feature.idd)"
+                                @click="removeMore(index, feature.idd)"
                             >
                                 Remove more
                             </button>
@@ -207,7 +206,13 @@
                                     type="button"
                                     class="btn btn-primary marginLeft radius"
                                     v-if="subIndex > 0"
-                                    @click="removeField(index, subIndex,subFeature.idd)"
+                                    @click="
+                                        removeField(
+                                            index,
+                                            subIndex,
+                                            subFeature.idd
+                                        )
+                                    "
                                 >
                                     Remove field
                                 </button>
@@ -281,16 +286,16 @@ export default {
     },
 
     methods: {
-        removeField(index, subIndex,id) {
-            console.log(index,'index',subIndex,'subindex',id)
+        removeField(index, subIndex, id) {
+            console.log(index, "index", subIndex, "subindex", id);
             this.features[index].subFeatures.splice(subIndex, 1);
             this.validationErrors.name[index].splice(subIndex, 1);
             this.validationErrors.description[index].splice(subIndex, 1);
             this.validationErrors.image[index].splice(subIndex, 1);
             this.imagePreview[index].splice(subIndex, 1);
         },
-        removeMore(index ,id) {
-            console.log(id)
+        removeMore(index, id) {
+            console.log(id);
             this.features.splice(index, 1);
         },
         handleImageUpload(event, index, subIndex) {
@@ -460,7 +465,7 @@ export default {
                     .then((response) => {
                         console.log("Success:", response);
 
-                        window.location.reload();
+                        // window.location.reload()
                     })
                     .catch((error) => {
                         console.error("Error:", error);
@@ -699,7 +704,7 @@ button[type="submit"]:hover {
 .marginLeft {
     margin-left: 727px !important;
 }
-.default-according.style-1 button[aria-expanded=false]:before {
+.default-according.style-1 button[aria-expanded="false"]:before {
     content: "\eb73" !important;
     font-family: IcoFont;
 }

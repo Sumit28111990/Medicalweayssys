@@ -111,29 +111,29 @@ export default {
 
     methods: {
         removeOneTitle(index, idd) {
-            if (confirm(`Are you sure you want to remove the Sidebar?`)) {
-                this.features.splice(index, 1);
-                let token = localStorage.getItem("token");
+            this.features.splice(index, 1);
+            // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+            //     let token = localStorage.getItem("token");
 
-                axios
-                    .delete(
-                        `${config.apiUrl}/api/delete-my-product-sidebar/${idd}`,
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-sidebar/${idd}`,
 
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        console.log("Error", res);
-                        // this.$router.replace("/admin");
-                        // window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((res) => {
+            //             console.log("Error", res);
+            //             // this.$router.replace("/admin");
+            //             // window.location.reload();
+            //         })
+            //         .catch((error) => {
+            //             console.error(error);
+            //         });
+            // }
         },
 
         handleImageUpload(event, index) {

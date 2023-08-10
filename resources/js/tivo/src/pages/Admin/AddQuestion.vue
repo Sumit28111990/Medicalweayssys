@@ -123,28 +123,28 @@ export default {
     },
     methods: {
         removeOneTitle(index, idd) {
-            if (confirm(`Are you sure you want to remove the FAQ?`)) {
-                this.features.splice(index, 1);
-                let token = localStorage.getItem("token");
+            this.features.splice(index, 1);
+            // if (confirm(`Are you sure you want to remove the FAQ?`)) {
+            //     let token = localStorage.getItem("token");
 
-                axios
-                    .delete(
-                        `${config.apiUrl}/api/delete-my-product-faq/${idd}`,
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-faq/${idd}`,
 
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        console.log("Error", res);
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((res) => {
+            //             console.log("Error", res);
                         
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
+            //         })
+            //         .catch((error) => {
+            //             console.error(error);
+            //         });
+            // }
         },
         cancelAdd() {
             if (this.features.length > 1) {

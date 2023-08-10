@@ -118,8 +118,8 @@ export default {
     border: 2px solid #007bff;
 }
 .thumbnail-image {
-    width: 85px !important;
-    height: 70px !important;
+    width: 75px !important;
+    height: 50px !important;
     cursor: pointer;
     opacity: 0.6;
 }

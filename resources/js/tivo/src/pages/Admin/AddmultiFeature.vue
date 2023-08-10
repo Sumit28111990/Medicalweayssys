@@ -18,8 +18,8 @@
                             Add New Feature
                         </button>
                     </div>
-                    <span class="text-danger"   v-if="errorMessage !== ''">
-                       {{ errorMessage }}
+                    <span class="text-danger" v-if="errorMessage !== ''">
+                        {{ errorMessage }}
                     </span>
                     <form @submit.prevent="submitForm">
                         <div v-for="(label, index) in labels" :key="index">
@@ -38,6 +38,7 @@
                             >
                                 Please select at least one option.
                             </span>
+                            <!-- <img  class="imgRight" @click="removeTitle(index)" src="../../assets/images/logo/x.svg" alt="" /> -->
                         </div>
 
                         <button
@@ -46,14 +47,6 @@
                         >
                             Submit
                         </button>
-                        <!-- <button
-                                class="mt-4 ml-4 btn btn-primary"
-                                v-if="EditIds !== null"
-                                type="submit"
-                                @click="Update()"
-                            >
-                                Update
-                            </button> -->
                     </form>
                 </div>
             </div>
@@ -74,17 +67,19 @@ export default {
             parentId: "",
             hasSelectedCheckbox: true,
             addNewItem: "",
-            errorMessage:"",
-           
+            errorMessage: "",
         };
     },
 
     created() {
         this.fetchLabels();
     },
-   
 
     methods: {
+        removeTitle(id){
+            console.log('ghj')
+            console.log(id,'id')
+        },
         fetchLabels() {
             let token = localStorage.getItem("token");
 
@@ -111,7 +106,7 @@ export default {
             if (!this.addNewItem) {
                 this.errorMessage = "The  Add New Feature Field is required";
             }
-        
+
             let token = localStorage.getItem("token");
             let data = {
                 name: this.addNewItem,
@@ -136,8 +131,7 @@ export default {
                     console.error(error);
                     // Handle error
                 });
-        
-    },
+        },
 
         submitForm() {
             const url = new URL(window.location.href);
@@ -257,5 +251,8 @@ export default {
 .capitalize {
     text-transform: capitalize !important;
     margin-left: 3px;
+}
+.imgRight{
+    float: right !important;
 }
 </style>
