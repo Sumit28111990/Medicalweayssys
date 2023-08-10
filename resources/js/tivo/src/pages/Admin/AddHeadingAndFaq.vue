@@ -465,7 +465,7 @@ export default {
                     .then((response) => {
                         console.log("Success:", response);
 
-                        // window.location.reload()
+                        window.location.reload()
                     })
                     .catch((error) => {
                         console.error("Error:", error);
