@@ -11,6 +11,8 @@
                                 type="text"
                                 placeholder="Enter YouTube Link"
                                 v-model="youtubelink"
+                                id="youtubeLink"
+                                ref="youtubeInput"
                             />
                             <span
                                 class="error text-danger"
@@ -18,9 +20,13 @@
                                 >{{ validationErrors.youtubelink }}</span
                             >
                         </div>
+                        <button class="mt-4 btn  radius" type="button" @click="clear()">
+                            Clear
+                        </button>
                         <button class="mt-4 btn btn-primary radius" type="submit">
                             Submit
                         </button>
+                        
                         <!-- <button
                             class="mt-4 btn btn-primary ml-4"
                             @click="Update()"
@@ -53,6 +59,21 @@ export default {
     },
 
     methods: {
+        clear(){
+            const url = new URL(window.location.href);
+            const id = url.pathname.split("/").pop();
+            const isNum = /^\d+$/.test(id);
+            if (isNum) {
+                this.parentId = id;
+            }
+            const data = {
+                    youtubelink: this.youtubelink,
+                    parent_id: this.parentId,
+                };
+                console.log(data)
+           
+            this.youtubelink=''
+        },
         validateForm() {
             this.validationErrors.youtubelink = this.youtubelink
                 ? ""
@@ -91,6 +112,7 @@ export default {
             if (isNum) {
                 this.parentId = id;
             }
+           
             if (this.validateForm()) {
                 const data = {
                     youtubelink: this.youtubelink,
@@ -122,6 +144,8 @@ export default {
                         console.error(error);
                         // Handle error
                     });
+            }else{
+                this.$refs.youtubeInput.focus();
             }
         },
         //   Update(){

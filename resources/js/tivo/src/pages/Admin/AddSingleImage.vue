@@ -33,9 +33,7 @@
                                 @drop="dropFiles1"
                                 @click="openFileInput1"
                             >
-                                <p>
-                                    Drag and drop files here or click to select
-                                </p>
+                                <p>Click to Select Single Product Images</p>
                             </div>
 
                             <input
@@ -222,45 +220,44 @@ export default {
             this.$refs.fileInput1.value = null;
         },
         removeImage1(index) {
-            if(confirm(`Are you sure you want to remove the image?`)){
+            if (confirm(`Are you sure you want to remove the image?`)) {
                 const imagePath = this.imagePreview1[index].url;
-            console.log("Removing image:", imagePath);
+                console.log("Removing image:", imagePath);
 
-            const fileName = imagePath.split("/").pop();
-            console.log("Image file name:", fileName);
+                const fileName = imagePath.split("/").pop();
+                console.log("Image file name:", fileName);
 
-            const fullPath = "product_images/" + fileName;
-            console.log("Full image path:", fullPath);
+                const fullPath = "product_images/" + fileName;
+                console.log("Full image path:", fullPath);
 
-            this.imagePreview1.splice(index, 1);
+                this.imagePreview1.splice(index, 1);
 
-            const object = {
-                path: fullPath,
-            };
-            
-            console.log(object, "removed data");
-            const dataString = JSON.stringify(object);
+                const object = {
+                    path: fullPath,
+                };
 
-            let token = localStorage.getItem("token");
+                console.log(object, "removed data");
+                const dataString = JSON.stringify(object);
 
-            axios
-                .post(
-                    `${config.apiUrl}/api/my-product-image-delete`,
-                    dataString,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then((res) => {
-                    console.log("res", res);
-                   
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+                let token = localStorage.getItem("token");
+
+                axios
+                    .post(
+                        `${config.apiUrl}/api/my-product-image-delete`,
+                        dataString,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("res", res);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
             }
         },
         dragOver2(event) {

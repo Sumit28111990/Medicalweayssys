@@ -58,7 +58,7 @@
                     @drop="dropFiles"
                     @click="openFileInput"
                   >
-                    <p>Drag and drop files here or click to select</p>
+                    <p>Click to select Product Image</p>
                   </div>
   
                   <input

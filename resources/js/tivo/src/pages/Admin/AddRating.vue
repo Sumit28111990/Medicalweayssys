@@ -13,6 +13,7 @@
                                     id="username"
                                     placeholder="Enter Username"
                                     v-model="ratingObject.userName"
+                                    ref="userNameInput"
                                 />
                                 <span
                                     class="text-danger"
@@ -29,6 +30,7 @@
                                     id="rating"
                                     placeholder="Enter Product Rating Only Integer Value"
                                     v-model="ratingObject.ratingNumber"
+                                    ref="ratingNumberInput"
                                 />
                                 <span
                                     class="text-danger"
@@ -45,6 +47,7 @@
                                     id="location"
                                     placeholder="Enter Location"
                                     v-model="ratingObject.location"
+                                    ref="locationInput"
                                 />
                                 <span
                                     class="text-danger"
@@ -63,6 +66,7 @@
                                     name="w3review"
                                     rows="4"
                                     cols="50"
+                                    ref="reviewInput"
                                 ></textarea>
                                 <span
                                     class="text-danger"
@@ -103,7 +107,7 @@
                     <td class="capitalize">{{ review.rating }}</td>
                     <td class="capitalize">{{ review.location }}</td>
                     <!-- <td class="capitalize">{{ review.review }}</td> -->
-                    <td class="capitalize"> 
+                    <td class="capitalize">
                         {{ getFirstFiveWords(review.review) }}
                     </td>
 
@@ -214,8 +218,19 @@ export default {
             if (!this.ratingObject.review) {
                 this.errors.review = "The review Field is required";
             }
+           
 
             if (Object.values(this.errors).some((error) => error !== "")) {
+                // Focus on the first input field with an error
+                if (this.errors.userName !== "") {
+                    this.$refs.userNameInput.focus();
+                } else if (this.errors.ratingNumber !== "") {
+                    this.$refs.ratingNumberInput.focus();
+                } else if (this.errors.location !== "") {
+                    this.$refs.locationInput.focus();
+                } else if (this.errors.review !== "") {
+                    this.$refs.reviewInput.focus();
+                }
                 return;
             }
 

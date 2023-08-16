@@ -15,6 +15,7 @@
                                     type="text"
                                     placeholder="Enter FAQ name"
                                     v-model="features[index].name"
+                                    :ref="'nameInput' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -34,6 +35,7 @@
                                     name="w3review"
                                     rows="4"
                                     cols="50"
+                                    :ref="'DescriptionInput' + index"
                                 >
                                 </textarea>
                                 <!-- <input class="form-control" type="text" placeholder="Enter Product Description" v-model="features[index].answer" /> -->
@@ -98,6 +100,7 @@
 </template>
 
 <script>
+import { getTransitionRawChildren } from "vue";
 import config from "../../config";
 import axios from "axios";
 export default {
@@ -139,7 +142,7 @@ export default {
             //         )
             //         .then((res) => {
             //             console.log("Error", res);
-                        
+
             //         })
             //         .catch((error) => {
             //             console.error(error);
@@ -221,7 +224,17 @@ export default {
                 //   this.$refs.imageInput.forEach((input) => {
                 //     input.value = null;
                 //   });
-            }
+            } else {
+        const firstErrorIndex = this.validationErrors.name.findIndex(error => error !== '');
+        const secondErrorIndex = this.validationErrors.description.findIndex(error => error !== '');
+
+        if (firstErrorIndex !== -1) {
+            this.$refs['nameInput' + firstErrorIndex][0].focus();
+        }
+        else if (secondErrorIndex !== -1) {
+            this.$refs['DescriptionInput' + secondErrorIndex][0].focus();
+        }
+    }
         },
         getFormDataW(id) {
             let token = localStorage.getItem("token");

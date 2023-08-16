@@ -8,7 +8,7 @@
                             <div>
                                 <input type="hidden" v-model="feature.idd" />
 
-                                <label for="name"
+                                <label :for="'name'+index"
                                     >Sidebar Title:{{ index }}</label
                                 >
                                 <input
@@ -16,6 +16,9 @@
                                     type="text"
                                     placeholder="Enter Product name"
                                     v-model="feature.name"
+                                    :id="'name'+index"
+                                    :ref="'featureNameInput' +index"
+                                  
                                 />
                                 <span
                                     class="error text-danger"
@@ -25,13 +28,14 @@
                             </div>
 
                             <div>
-                                <label for="image"
+                                <label :for="'image'+index"
                                     >Sidebar Image:{{ index }}</label
                                 >
                                 <input
                                     class="form-control"
                                     type="file"
                                     @change="handleImageUpload($event, index)"
+                                    :id="'image'+index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -111,6 +115,7 @@ export default {
 
     methods: {
         removeOneTitle(index, idd) {
+            console.log(idd)
             this.features.splice(index, 1);
             // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
             //     let token = localStorage.getItem("token");
@@ -232,6 +237,14 @@ export default {
                     });
 
                 this.resetForm();
+            }else{
+                const firstErrorIndex = this.validationErrors.name.findIndex(
+                    (error) => error !== ""
+                );
+                if (firstErrorIndex !== -1) {
+                    this.$refs["featureNameInput" + firstErrorIndex][0].focus();
+                }
+
             }
         },
 

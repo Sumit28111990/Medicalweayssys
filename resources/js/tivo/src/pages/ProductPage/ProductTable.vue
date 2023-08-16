@@ -16,7 +16,7 @@
 
                 <td v-for="product in compareProduct" :key="product.id">
                     <ul v-if="product.assign_feature.length > 0">
-                        <li 
+                        <li
                             v-for="(feature, index) in product.assign_feature"
                             :key="index"
                         >

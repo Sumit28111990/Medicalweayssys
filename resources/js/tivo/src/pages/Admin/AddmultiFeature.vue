@@ -9,6 +9,7 @@
                             class="form-control"
                             placeholder="Enter Add New Feature"
                             v-model="addNewItem"
+                            ref="newFeatureRef"
                         />
                         <button
                             type="submit"
@@ -38,7 +39,12 @@
                             >
                                 Please select at least one option.
                             </span>
-                            <!-- <img  class="imgRight" @click="removeTitle(index)" src="../../assets/images/logo/x.svg" alt="" /> -->
+                            <img
+                                class="imgRight"
+                                @click="removeTitle(label.id, index)"
+                                src="../../assets/images/logo/x.svg"
+                                alt=""
+                            />
                         </div>
 
                         <button
@@ -76,9 +82,32 @@ export default {
     },
 
     methods: {
-        removeTitle(id){
-            console.log('ghj')
-            console.log(id,'id')
+        removeTitle(id, index) {
+            console.log(id, "id", index);
+            this.labels.splice(index, 1);
+            // if(confirm(`Are you sure you want to remove the Assing Feature?`)){
+                // let token = localStorage.getItem("token");
+
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-assingfeature/${id}`,
+
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((res) => {
+            //             console.log("Error", res);
+            //             // this.$router.replace("/admin");
+            //             // window.location.reload();
+            //         })
+            //         .catch((error) => {
+            //             console.error(error);
+            //         });
+
+            // }
         },
         fetchLabels() {
             let token = localStorage.getItem("token");
@@ -107,6 +136,9 @@ export default {
                 this.errorMessage = "The  Add New Feature Field is required";
             }
 
+            if(this.errorMessage !==""){
+                this.$refs.newFeatureRef.focus();
+            }
             let token = localStorage.getItem("token");
             let data = {
                 name: this.addNewItem,
@@ -124,6 +156,7 @@ export default {
                     }
                 )
                 .then((response) => {
+                   
                     window.location.reload();
                     this.addNewItem = "";
                 })
@@ -242,7 +275,7 @@ export default {
 </script>
 <style scoped>
 .form-control {
-    width: 70%;
+    width: 80%;
 }
 .inputField {
     display: flex;
@@ -252,7 +285,9 @@ export default {
     text-transform: capitalize !important;
     margin-left: 3px;
 }
-.imgRight{
+.imgRight {
+    /* color: white !important; */
     float: right !important;
+    margin-right: 60px;
 }
 </style>

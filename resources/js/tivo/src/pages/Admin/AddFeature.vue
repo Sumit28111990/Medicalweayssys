@@ -10,15 +10,16 @@
                                     type="hidden"
                                     v-model="features[index].idd"
                                 />
-                                <label for="name"
+                                <label :for="'name' + index"
                                     >Feature Name:{{ index }}</label
                                 >
                                 <input
                                     class="form-control"
+                                    :id="'name' + index"
                                     type="text"
                                     placeholder="Enter Product name"
                                     v-model="features[index].name"
-                                    ref="featureNameInput"
+                                    :ref="`featureNameInput${index}`"
                                 />
                                 <span
                                     class="error text-danger"
@@ -28,7 +29,7 @@
                             </div>
 
                             <div>
-                                <label for="description"
+                                <label :for="'description' + index"
                                     >Feature Description:{{ index }}</label
                                 >
                                 <textarea
@@ -37,6 +38,8 @@
                                     v-model="features[index].description"
                                     rows="4"
                                     cols="50"
+                                    :id="'description' + index"
+                                    :ref="`featureDescriptionInput${index}`"
                                 >
                                 </textarea>
                                 <!-- <input
@@ -55,13 +58,14 @@
                             </div>
 
                             <div>
-                                <label for="image"
+                                <label :for="'image' + index"
                                     >Feature Image:{{ index }}</label
                                 >
                                 <input
                                     class="form-control"
                                     type="file"
                                     @change="handleImageUpload($event, index)"
+                                    :id="'image' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -130,6 +134,7 @@ import axios from "axios";
 export default {
     data() {
         return {
+            activeTabIndex: 0,
             existId: [],
             EditIds: null,
             parentId: "",
@@ -304,7 +309,17 @@ export default {
                     image: [],
                 };
                 this.imagePreview = [];
-            }
+            }else {
+        const firstErrorIndex = this.validationErrors.name.findIndex(error => error !== '');
+        const secondErrorIndex = this.validationErrors.description.findIndex(error => error !== '');
+
+        if (firstErrorIndex !== -1) {
+            this.$refs['featureNameInput' + firstErrorIndex][0].focus();
+        }
+        else if (secondErrorIndex !== -1) {
+            this.$refs['featureDescriptionInput' + secondErrorIndex][0].focus();
+        }
+    }
         },
         getFormDataW(id) {
             let token = localStorage.getItem("token");

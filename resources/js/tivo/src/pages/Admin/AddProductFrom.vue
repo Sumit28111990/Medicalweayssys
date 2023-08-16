@@ -2,7 +2,6 @@
     <breadCrumbs :title="title" :main="main" />
     <div class="col-sm-12 col-xl-12">
         <div class="card basic-tab">
-           
             <div class="card-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -50,8 +49,8 @@
                             role="tab"
                             aria-controls="MultiFeaturesTable"
                             aria-selected="false"
-                            >AsingFeatures </a
-                        >
+                            >AsingFeatures
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a
@@ -62,13 +61,13 @@
                             role="tab"
                             aria-controls="YoutubeLink"
                             aria-selected="false"
-                            >Youtube Link </a
-                        >
+                            >Youtube Link
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            id="headingAndFaq-tab"  
+                            id="headingAndFaq-tab"
                             data-bs-toggle="tab"
                             href="#headingAndFaq"
                             role="tab"
@@ -110,10 +109,9 @@
                             role="tab"
                             aria-controls="compareProduct"
                             aria-selected="false"
-                            >Rating </a
-                        >
+                            >Rating
+                        </a>
                     </li>
-
 
                     <li class="nav-item">
                         <a
@@ -127,11 +125,7 @@
                             >FAQ</a
                         >
                     </li>
-                   
-                    
-                   
-                   
-                   
+
                     <li class="nav-item">
                         <a
                             class="nav-link"
@@ -141,10 +135,9 @@
                             role="tab"
                             aria-controls="compareProduct"
                             aria-selected="false"
-                            >CompareProduct </a
-                        >
+                            >CompareProduct
+                        </a>
                     </li>
-                   
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div
@@ -153,8 +146,7 @@
                         role="tabpanel"
                         aria-labelledby="product-tab"
                     >
-             
-                        <AddImagePreview/>
+                        <AddImagePreview />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -162,7 +154,7 @@
                         role="tabpanel"
                         aria-labelledby="home-tab"
                     >
-                        <AddFeature  />
+                        <AddFeature />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -170,7 +162,7 @@
                         role="tabpanel"
                         aria-labelledby="profile-tab"
                     >
-                        <AddQuestion  />
+                        <AddQuestion />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -178,7 +170,7 @@
                         role="tabpanel"
                         aria-labelledby="slider-tab"
                     >
-                        <SliderImage  />
+                        <SliderImage />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -186,7 +178,7 @@
                         role="tabpanel"
                         aria-labelledby="slider-tab"
                     >
-                        <AddSingleImage  />
+                        <AddSingleImage />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -194,9 +186,9 @@
                         role="tabpanel"
                         aria-labelledby="slider-tab"
                     >
-                        <AddSideBar  />
+                        <AddSideBar />
                     </div>
-                   
+
                     <div
                         class="tab-pane fade"
                         id="headingAndFaq"
@@ -219,7 +211,7 @@
                         role="tabpanel"
                         aria-labelledby="MultiFeaturesTable-tab"
                     >
-                        <AddmultiFeature  />
+                        <AddmultiFeature />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -227,7 +219,7 @@
                         role="tabpanel"
                         aria-labelledby="compareProduct-tab"
                     >
-                        <CompareProduct  />
+                        <CompareProduct />
                     </div>
                     <div
                         class="tab-pane fade"
@@ -235,7 +227,7 @@
                         role="tabpanel"
                         aria-labelledby="compareProduct-tab"
                     >
-                        <AddRating  />
+                        <AddRating />
                     </div>
                 </div>
             </div>
@@ -251,13 +243,13 @@ import AddFeature from "../Admin/AddFeature.vue";
 import AddQuestion from "../Admin/AddQuestion.vue";
 import SliderImage from "../Admin/SliderImage.vue";
 import AddHeadingAndFaq from "../Admin/AddHeadingAndFaq.vue";
+import AddSideBar from "../Admin/AddSideBar.vue";
+import AddYoutube from "../Admin/AddYoutube.vue";
+import AddmultiFeature from "../Admin/AddmultiFeature.vue";
+import CompareProduct from "../Admin/CompareProduct.vue";
+import AddRating from "../Admin/AddRating.vue";
 import config from "../../config";
 import axios from "axios";
-import AddSideBar from '../Admin/AddSideBar.vue'
-import AddYoutube from '../Admin/AddYoutube.vue'
-import AddmultiFeature from '../Admin/AddmultiFeature.vue'
-import CompareProduct from '../Admin/CompareProduct.vue'
-import AddRating from '../Admin/AddRating.vue'
 
 export default {
     components: {
@@ -272,7 +264,7 @@ export default {
         AddmultiFeature,
         CompareProduct,
         AddRating,
-        AddSingleImage
+        AddSingleImage,
     },
     data() {
         return {
@@ -291,89 +283,88 @@ export default {
             parentId: "",
         };
     },
-    methods: {
-        dragOver(event) {
-            event.preventDefault();
-        },
-        dropFiles(event) {
-            event.preventDefault();
-            const files = event.dataTransfer.files;
-            this.handleFileUpload(files);
-        },
-        openFileInput() {
-            this.$refs.fileInput.click();
-        },
+    // methods: {
+    //     dragOver(event) {
+    //         event.preventDefault();
+    //     },
+    //     dropFiles(event) {
+    //         event.preventDefault();
+    //         const files = event.dataTransfer.files;
+    //         this.handleFileUpload(files);
+    //     },
+    //     openFileInput() {
+    //         this.$refs.fileInput.click();
+    //     },
 
-        cancelFiles() {
-            this.selectedFiles = [], 
-            this.product.name = "";
-            this.product.model = "";
-            this.product.productPrice = "";
-            this.product.discount = "";
+    //     cancelFiles() {
+    //         (this.selectedFiles = []), (this.product.name = "");
+    //         this.product.model = "";
+    //         this.product.productPrice = "";
+    //         this.product.discount = "";
 
-            this.$refs.fileInput.value = null;
-        },
-        removeImage(index) {
-            this.scopedimagePreview.splice(index, 1);
+    //         this.$refs.fileInput.value = null;
+    //     },
+    //     removeImage(index) {
+    //         this.scopedimagePreview.splice(index, 1);
 
-            if (this.imagePreview.length === 0) {
-                this.$refs.fileInput.value = null;
-            }
-        },
-        handleFileUpload(event) {
-            const files = event.target.files;
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const url = URL.createObjectURL(file);
-                this.imagePreview.push({ url: url });
-                this.selectedFiles.push({ file: file });
-                console.log(this.selectedFiles);
-            }
-        },
-        AddProduct() {
-            const formData = new FormData();
-            formData.append("name", this.product.name);
-            // formData.append("product_modelname", this.product.model);    
-            formData.append("product_price", this.product.productPrice);
-            formData.append("product_discount", this.product.discount);
-            this.selectedFiles.forEach((file, index) => {
-                formData.append(`files[${index}]`, file.file);
-            });
-            console.log(formData)
+    //         if (this.imagePreview.length === 0) {
+    //             this.$refs.fileInput.value = null;
+    //         }
+    //     },
+    //     handleFileUpload(event) {
+    //         const files = event.target.files;
+    //         for (let i = 0; i < files.length; i++) {
+    //             const file = files[i];
+    //             const url = URL.createObjectURL(file);
+    //             this.imagePreview.push({ url: url });
+    //             this.selectedFiles.push({ file: file });
+    //             console.log(this.selectedFiles);
+    //         }
+    //     },
+    //     AddProduct() {
+    //         const formData = new FormData();
+    //         formData.append("name", this.product.name);
+    //         // formData.append("product_modelname", this.product.model);
+    //         formData.append("product_price", this.product.productPrice);
+    //         formData.append("product_discount", this.product.discount);
+    //         this.selectedFiles.forEach((file, index) => {
+    //             formData.append(`files[${index}]`, file.file);
+    //         });
+    //         console.log(formData);
 
-            let token = localStorage.getItem("token");
+    //         let token = localStorage.getItem("token");
 
-            axios
-                .post(`${config.apiUrl}/api/my-product`, formData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
-                .then((res) => {
-                    console.log(res.data, "dtata");
-                    this.parentId = res.data.result.id;
-                    // console.log(this.parentId)
+    //         axios
+    //             .post(`${config.apiUrl}/api/my-product`, formData, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                     "Content-Type": "multipart/form-data",
+    //                 },
+    //             })
+    //             .then((res) => {
+    //                 console.log(res.data, "dtata");
+    //                 this.parentId = res.data.result.id;
+    //                 // console.log(this.parentId)
 
-                    // Handle response
-                    // this.$router.push({ name: AddFeatureVue});
-                })
-                .catch((error) => {
-                    console.error(error);
-                    // Handle error
-                });
-            (this.imagePreview = []),
-                (this.product = {
-                    name: "",
-                    model: "",
-                    productPrice: "",
-                    discount: "",
-                });
-        },
-    },
+    //                 // Handle response
+    //                 // this.$router.push({ name: AddFeatureVue});
+    //             })
+    //             .catch((error) => {
+    //                 console.error(error);
+    //                 // Handle error
+    //             });
+    //         (this.imagePreview = []),
+    //             (this.product = {
+    //                 name: "",
+    //                 model: "",
+    //                 productPrice: "",
+    //                 discount: "",
+    //             });
+    //     },
+    // },
 };
 </script>
-<style >
+<style>
 .nav-link.active {
     background-color: #5c61f2 !important;
     color: white !important;

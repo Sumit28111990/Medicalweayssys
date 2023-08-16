@@ -34,7 +34,7 @@
                                 @click="openFileInput1"
                             >
                                 <p>
-                                    Drag and drop files here or click to select
+                             Click to Select Slider Product Image
                                 </p>
                             </div>
 

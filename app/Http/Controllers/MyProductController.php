@@ -782,7 +782,7 @@ public function productyoutubelink(Request $request)
                          $fileSub = isset($data['icon'][$i][$j]) ? $data['icon'][$i][$j] : null;
                          $description = $data['description'][$i][$j];
                          $sub_title = $data['sub_title'][$i][$j];
-                         $id2 = $data['newid2'][$j];
+                         $id2 = $data['newid2'][$i][$j];
                          $is_edit2 = false;
                          $self_id2 = 0;
                          if ($id) {

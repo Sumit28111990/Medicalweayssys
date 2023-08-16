@@ -17,6 +17,7 @@
                                     type="text"
                                     placeholder="Enter Headline"
                                     v-model="feature.headline"
+                                    :ref="'headlineRef' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -70,6 +71,7 @@
                                     type="text"
                                     placeholder="Enter Text left/right only"
                                     v-model="feature.imagePosition"
+                                    :ref="'imagePositionRef' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -104,10 +106,11 @@
                                     >
                                     <input
                                         class="form-control"
-                                        :id="'name' + index"
+                                        :id="'name' + index + subIndex"
                                         type="text"
                                         placeholder="Enter Product name"
                                         v-model="subFeature.name"
+                                        :ref="'featureNameRef' + subIndex"
                                     />
                                     <span
                                         class="error text-danger"
@@ -145,6 +148,8 @@
                                         :id="'description' + index + subIndex"
                                         rows="4"
                                         cols="50"
+                                        :ref="
+                                            'featureDescriptionRef' + subIndex"
                                     >
                                     </textarea>
                                     <span
@@ -293,10 +298,51 @@ export default {
             this.validationErrors.description[index].splice(subIndex, 1);
             this.validationErrors.image[index].splice(subIndex, 1);
             this.imagePreview[index].splice(subIndex, 1);
+            // if (
+            //     confirm(`Are you Sure you want to remove the Subspecification?`)
+            // ) {
+            //     let token = localStorage.getItem("token");
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-subspecificaion/${id}`,
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((response) => {
+            //             console.log(response)
+            //         }).catch((error)=>{
+            //             console.erroe(error)
+            //         })
+            // }
         },
         removeMore(index, id) {
-            console.log(id);
+            console.log(index, id);
             this.features.splice(index, 1);
+            // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+            //     let token = localStorage.getItem("token");
+
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-specification/${id}`,
+
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((res) => {
+            //             console.log("Error", res);
+            //             // this.$router.replace("/admin");
+            //             // window.location.reload();
+            //         })
+            //         .catch((error) => {
+            //             console.error(error);
+            //         });
+            // }
         },
         handleImageUpload(event, index, subIndex) {
             const files = event.target.files;
@@ -376,7 +422,10 @@ export default {
                     return subFeatureErrors;
                 }
             );
-
+            console.log(Object.values(this.validationErrors));
+            return Object.values(this.validationErrors).every((errors) =>
+                errors.every((error) => !error)
+            );
             return isValid;
         },
 
@@ -465,7 +514,7 @@ export default {
                     .then((response) => {
                         console.log("Success:", response);
 
-                        window.location.reload()
+                        // window.location.reload();
                     })
                     .catch((error) => {
                         console.error("Error:", error);
@@ -496,6 +545,38 @@ export default {
                     additionalImage: [],
                     imagePosition: [],
                 };
+            } else {
+                const firstErrorIndex =
+                    this.validationErrors.headline.findIndex(
+                        (error) => error !== ""
+                    );
+                const secondErrorIndex =
+                    this.validationErrors.imagePosition.findIndex(
+                        (error) => error !== ""
+                    );
+                const thirdErrorIndex = this.validationErrors.subFeatures.name.findIndex(
+                    (error) => error !== ""
+                );
+                const fourErrorIndex = this.validationErrors.subFeatures.description.findIndex(
+                    (error) => error !== ""
+                );
+                console.log(firstErrorIndex, "thirdErrorIndex");
+                console.log(secondErrorIndex, "thirdErrorIndex");
+                console.log(thirdErrorIndex, "thirdErrorIndex");
+                console.log(fourErrorIndex, "fourErrorIndex");
+                if (firstErrorIndex !== -1) {
+                    this.$refs["headlineRef" + firstErrorIndex][0].focus();
+                } else if (secondErrorIndex !== -1) {
+                    this.$refs[
+                        "imagePositionRef" + secondErrorIndex
+                    ][0].focus();
+                } else if (thirdErrorIndex !== -1) {
+                    console.log("ptatik");
+                    this.$refs["featureNameRef" + thirdErrorIndex][0].focus();
+                }else if(fourErrorIndex !== -1){
+                    console.log("pintu")
+                    this.$refs['featureDescriptionRef'+fourErrorIndex][0].focus()
+                }
             }
         },
 
