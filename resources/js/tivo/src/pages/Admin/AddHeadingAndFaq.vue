@@ -405,6 +405,7 @@ export default {
                         return "";
                     }
                 );
+                
                 return subFeatureErrors;
             });
 
@@ -422,15 +423,16 @@ export default {
                     return subFeatureErrors;
                 }
             );
-            console.log(Object.values(this.validationErrors));
-            return Object.values(this.validationErrors).every((errors) =>
+            console.log(Object.values(this.validationErrors),'obejct');
+             Object.values(this.validationErrors).every((errors) =>
                 errors.every((error) => !error)
             );
+            // console.log(isValid,'vlisa')
             return isValid;
         },
 
         submitForm() {
-            console.log("submit");
+           
             const url = new URL(window.location.href);
             const id = url.pathname.split("/").pop();
             const isNum = /^\d+$/.test(id);
@@ -439,6 +441,7 @@ export default {
             }
 
             if (this.validateForm()) {
+                console.log("sub")
                 const formData = new FormData();
                 this.features.forEach((feature, i) => {
                     formData.append(`title[${i}]`, feature.headline);
@@ -537,6 +540,8 @@ export default {
                         ],
                     },
                 ];
+       
+                
                 this.validationErrors = {
                     headline: [],
                     name: [[]],
@@ -546,6 +551,7 @@ export default {
                     imagePosition: [],
                 };
             } else {
+             console.log(this.validationErrors,'validerror')
                 const firstErrorIndex =
                     this.validationErrors.headline.findIndex(
                         (error) => error !== ""
@@ -554,14 +560,13 @@ export default {
                     this.validationErrors.imagePosition.findIndex(
                         (error) => error !== ""
                     );
-                const thirdErrorIndex = this.validationErrors.subFeatures.name.findIndex(
+                const thirdErrorIndex = this.validationErrors.name[0].findIndex(
                     (error) => error !== ""
                 );
-                const fourErrorIndex = this.validationErrors.subFeatures.description.findIndex(
+                const fourErrorIndex = this.validationErrors.description[0].findIndex(
                     (error) => error !== ""
                 );
-                console.log(firstErrorIndex, "thirdErrorIndex");
-                console.log(secondErrorIndex, "thirdErrorIndex");
+              
                 console.log(thirdErrorIndex, "thirdErrorIndex");
                 console.log(fourErrorIndex, "fourErrorIndex");
                 if (firstErrorIndex !== -1) {
