@@ -84,30 +84,30 @@ export default {
     methods: {
         removeTitle(id, index) {
             console.log(id, "id", index);
-            this.labels.splice(index, 1);
-            // if(confirm(`Are you sure you want to remove the Assing Feature?`)){
-                // let token = localStorage.getItem("token");
+            if(confirm(`Are you sure you want to remove the Assing Feature?`)){
+                this.labels.splice(index, 1);
+                let token = localStorage.getItem("token");
 
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-assingfeature/${id}`,
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/my-product-delete-addnewfeature/${id}`,
 
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((res) => {
-            //             console.log("Error", res);
-            //             // this.$router.replace("/admin");
-            //             // window.location.reload();
-            //         })
-            //         .catch((error) => {
-            //             console.error(error);
-            //         });
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
 
-            // }
+            }
         },
         fetchLabels() {
             let token = localStorage.getItem("token");

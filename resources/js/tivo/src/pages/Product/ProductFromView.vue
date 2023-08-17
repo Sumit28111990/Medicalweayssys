@@ -16,6 +16,7 @@
                     : ''
             "
         >
+        <!-- {{ data }} -->
             <!-- {{console.log(parentIdValue,'hhhhhh')}} -->
             <div v-if="data.field_type == 'text'">
                 <div>

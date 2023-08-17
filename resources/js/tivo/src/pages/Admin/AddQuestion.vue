@@ -126,28 +126,28 @@ export default {
     },
     methods: {
         removeOneTitle(index, idd) {
-            this.features.splice(index, 1);
-            // if (confirm(`Are you sure you want to remove the FAQ?`)) {
-            //     let token = localStorage.getItem("token");
+            if (confirm(`Are you sure you want to remove the FAQ?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
 
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-faq/${idd}`,
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-faq/${idd}`,
 
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((res) => {
-            //             console.log("Error", res);
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
 
-            //         })
-            //         .catch((error) => {
-            //             console.error(error);
-            //         });
-            // }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
         cancelAdd() {
             if (this.features.length > 1) {
@@ -404,5 +404,29 @@ button[type="submit"]:hover {
 }
 .radius {
     border-radius: 22px !important;
+}
+@media only screen and (width: 768px) {
+    .marginLeft {
+    margin-left: 546px !important;
+}
+
+}
+@media only screen and (width: 425px)  {
+    .marginLeft {
+    margin-left: 252px !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .marginLeft {
+    margin-left: 148px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .marginLeft {
+    margin-left: 200px !important;
+}
+
 }
 </style>

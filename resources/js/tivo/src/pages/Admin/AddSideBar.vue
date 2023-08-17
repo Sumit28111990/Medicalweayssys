@@ -116,29 +116,29 @@ export default {
     methods: {
         removeOneTitle(index, idd) {
             console.log(idd)
-            this.features.splice(index, 1);
-            // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
-            //     let token = localStorage.getItem("token");
+            if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
 
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-sidebar/${idd}`,
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-sidebar/${idd}`,
 
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((res) => {
-            //             console.log("Error", res);
-            //             // this.$router.replace("/admin");
-            //             // window.location.reload();
-            //         })
-            //         .catch((error) => {
-            //             console.error(error);
-            //         });
-            // }
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
 
         handleImageUpload(event, index) {
@@ -366,5 +366,29 @@ button[type="button"]:hover {
 }
 .radius {
     border-radius: 22px !important;
+}
+@media only screen and (width: 768px) {
+    .marginLeft {
+    margin-left: 546px !important;
+}
+
+}
+@media only screen and (width: 425px)  {
+    .marginLeft {
+    margin-left: 252px !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .marginLeft {
+    margin-left: 148px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .marginLeft {
+    margin-left: 200px !important;
+}
+
 }
 </style>

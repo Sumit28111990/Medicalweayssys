@@ -81,7 +81,7 @@
                                 </span>
                             </div>
                             <button
-                                class="mt-4 btn btn-primary ml-4 removeMoreMargin"
+                                class="mt-4 btn  marginLeft "
                                 v-if="index > 0"
                                 @click="removeMore(index, feature.idd)"
                             >
@@ -149,7 +149,8 @@
                                         rows="4"
                                         cols="50"
                                         :ref="
-                                            'featureDescriptionRef' + subIndex"
+                                            'featureDescriptionRef' + subIndex
+                                        "
                                     >
                                     </textarea>
                                     <span
@@ -209,7 +210,7 @@
                                 </div>
                                 <button
                                     type="button"
-                                    class="btn btn-primary marginLeft radius"
+                                    class="btn marginLeft radius"
                                     v-if="subIndex > 0"
                                     @click="
                                         removeField(
@@ -405,7 +406,7 @@ export default {
                         return "";
                     }
                 );
-                
+
                 return subFeatureErrors;
             });
 
@@ -423,8 +424,8 @@ export default {
                     return subFeatureErrors;
                 }
             );
-            console.log(Object.values(this.validationErrors),'obejct');
-             Object.values(this.validationErrors).every((errors) =>
+            console.log(Object.values(this.validationErrors), "obejct");
+            Object.values(this.validationErrors).every((errors) =>
                 errors.every((error) => !error)
             );
             // console.log(isValid,'vlisa')
@@ -432,7 +433,6 @@ export default {
         },
 
         submitForm() {
-           
             const url = new URL(window.location.href);
             const id = url.pathname.split("/").pop();
             const isNum = /^\d+$/.test(id);
@@ -441,7 +441,7 @@ export default {
             }
 
             if (this.validateForm()) {
-                console.log("sub")
+                console.log("sub");
                 const formData = new FormData();
                 this.features.forEach((feature, i) => {
                     formData.append(`title[${i}]`, feature.headline);
@@ -540,8 +540,7 @@ export default {
                         ],
                     },
                 ];
-       
-                
+
                 this.validationErrors = {
                     headline: [],
                     name: [[]],
@@ -551,7 +550,7 @@ export default {
                     imagePosition: [],
                 };
             } else {
-             console.log(this.validationErrors,'validerror')
+                console.log(this.validationErrors, "validerror");
                 const firstErrorIndex =
                     this.validationErrors.headline.findIndex(
                         (error) => error !== ""
@@ -560,13 +559,16 @@ export default {
                     this.validationErrors.imagePosition.findIndex(
                         (error) => error !== ""
                     );
-                const thirdErrorIndex = this.validationErrors.name[0].findIndex(
-                    (error) => error !== ""
+                const thirdErrorIndex = this.validationErrors.name.findIndex(
+                    (errors) => {
+                        return errors.some((error) => error !== "");
+                    }
                 );
-                const fourErrorIndex = this.validationErrors.description[0].findIndex(
-                    (error) => error !== ""
-                );
-              
+                const fourErrorIndex =
+                    this.validationErrors.description[0].findIndex(
+                        (error) => error !== ""
+                    );
+
                 console.log(thirdErrorIndex, "thirdErrorIndex");
                 console.log(fourErrorIndex, "fourErrorIndex");
                 if (firstErrorIndex !== -1) {
@@ -578,9 +580,11 @@ export default {
                 } else if (thirdErrorIndex !== -1) {
                     console.log("ptatik");
                     this.$refs["featureNameRef" + thirdErrorIndex][0].focus();
-                }else if(fourErrorIndex !== -1){
-                    console.log("pintu")
-                    this.$refs['featureDescriptionRef'+fourErrorIndex][0].focus()
+                } else if (fourErrorIndex !== -1) {
+                    console.log("pintu");
+                    this.$refs[
+                        "featureDescriptionRef" + fourErrorIndex
+                    ][0].focus();
                 }
             }
         },
@@ -788,10 +792,36 @@ button[type="submit"]:hover {
     margin-left: 4px;
 }
 .marginLeft {
-    margin-left: 727px !important;
+    margin-left: 720px !important;
 }
 .default-according.style-1 button[aria-expanded="false"]:before {
     content: "\eb73" !important;
     font-family: IcoFont;
 }
+@media only screen and (width: 768px) {
+    .marginLeft {
+    margin-left: 512px !important;
+}
+
+}
+@media only screen and (width: 425px)  {
+    .marginLeft {
+    margin-left: 215px !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .marginLeft {
+    margin-left: 110px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .marginLeft {
+    margin-left: 164px !important;
+}
+
+}
+
+
 </style>

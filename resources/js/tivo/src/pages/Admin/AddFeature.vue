@@ -5,6 +5,7 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
+                            <!-- {{ feature }} -->
                             <div>
                                 <input
                                     type="hidden"
@@ -159,29 +160,29 @@ export default {
     },
     methods: {
         removeOneTilte(index, idd) {
-            this.features.splice(index, 1);
-            // if (confirm(`Are you sure you want to remove the Feature?`)) {
-            //     let token = localStorage.getItem("token");
+            if (confirm(`Are you sure you want to remove the Feature?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
 
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-feature/${idd}`,
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-feature/${idd}`,
 
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((res) => {
-            //             console.log("Error", res);
-            //             // this.$router.replace("/admin");
-            //             // window.location.reload();
-            //         })
-            //         .catch((error) => {
-            //             console.error(error);
-            //         });
-            // }
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
 
         cancelAdd() {
@@ -309,17 +310,23 @@ export default {
                     image: [],
                 };
                 this.imagePreview = [];
-            }else {
-        const firstErrorIndex = this.validationErrors.name.findIndex(error => error !== '');
-        const secondErrorIndex = this.validationErrors.description.findIndex(error => error !== '');
+            } else {
+                const firstErrorIndex = this.validationErrors.name.findIndex(
+                    (error) => error !== ""
+                );
+                const secondErrorIndex =
+                    this.validationErrors.description.findIndex(
+                        (error) => error !== ""
+                    );
 
-        if (firstErrorIndex !== -1) {
-            this.$refs['featureNameInput' + firstErrorIndex][0].focus();
-        }
-        else if (secondErrorIndex !== -1) {
-            this.$refs['featureDescriptionInput' + secondErrorIndex][0].focus();
-        }
-    }
+                if (firstErrorIndex !== -1) {
+                    this.$refs["featureNameInput" + firstErrorIndex][0].focus();
+                } else if (secondErrorIndex !== -1) {
+                    this.$refs[
+                        "featureDescriptionInput" + secondErrorIndex
+                    ][0].focus();
+                }
+            }
         },
         getFormDataW(id) {
             let token = localStorage.getItem("token");
@@ -440,6 +447,29 @@ button[type="submit"]:hover {
 }
 .marginLeft {
     margin-left: 770px !important;
+}@media only screen and (width: 768px) {
+    .marginLeft {
+    margin-left: 546px !important;
+}
+
+}
+@media only screen and (width: 425px)  {
+    .marginLeft {
+    margin-left: 252px !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .marginLeft {
+    margin-left: 148px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .marginLeft {
+    margin-left: 200px !important;
+}
+
 }
 /* .removeButton{
     padding: 10px 20px;

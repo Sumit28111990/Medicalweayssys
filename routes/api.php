@@ -77,6 +77,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('my-product-delete-review/{id}', [MyProductController::class, 'deleteProductReview']);
     Route::get('my-product-get-single-review/{id}', [MyProductController::class, 'getSingleProductReview']);
     Route::post('my-product-update-review/{id}', [MyProductController::class, 'updateProductReview']);
+    Route::delete('my-product-delete-addnewfeature/{id}',[MyProductController::class,'deleteAddNewFeature']);
+    Route::delete('my-product-delete-youtubelink/{id}',[MyProductController::class,'deleteProductLink']);
+
 
 
 

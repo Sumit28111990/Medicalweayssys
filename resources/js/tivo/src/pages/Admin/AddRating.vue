@@ -89,7 +89,7 @@
         </div>
         <span> Table to display reviews</span>
         <hr />
-        <table class="table mt-4" v-if="reviews.length > 0">
+        <table class="table tableResponsive mt-4" v-if="reviews.length > 0">
             <thead>
                 <tr>
                     <th>S/N</th>
@@ -446,5 +446,24 @@ export default {
 }
 .capitalize {
     text-transform: capitalize !important;
+}
+
+@media only screen and (width: 425px)  {
+    .tableResponsive {
+    width: 100vh !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .tableResponsive {
+    margin-left: 148px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .tableResponsive {
+    margin-left: 200px !important;
+}
+
 }
 </style>
