@@ -42,22 +42,24 @@
                                     v-if="validationErrors.image[index]"
                                     >{{ validationErrors.image[index] }}</span
                                 >
-                                <img :src="feature.url" />
+                                <img :src="feature.url"  class="imageMargin"/>
                                 <!-- <button type="button" class="btn btn-danger radius" @click="removeImage(index)">
                                     RemoveImage
 
                                     
                                 </button> -->
                             </div>
-
-                            <button
+                            <div class="d-flex justify-content-end">
+                                <button
                                 type="button"
-                                class="btn marginLeft radius"
+                                class="btn  mt-2 btn-primary"
                                 @click="removeOneTitle(index,feature.idd)"
                                 v-if="index > 0"
                             >
                                 Remove
                             </button>
+                            </div>
+                           
                             <hr />
                         </div>
 
@@ -367,28 +369,14 @@ button[type="button"]:hover {
 .radius {
     border-radius: 22px !important;
 }
-@media only screen and (width: 768px) {
-    .marginLeft {
-    margin-left: 546px !important;
-}
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+
+.imageMargin{
+  margin-top: 10px ;
 
 }
-@media only screen and (width: 425px)  {
-    .marginLeft {
-    margin-left: 252px !important;
-}
 
-}
-@media only screen and (width: 320px)  {
-    .marginLeft {
-    margin-left: 148px !important;
-}
 
-}
-@media only screen and (width: 375px)  {
-    .marginLeft {
-    margin-left: 200px !important;
-}
+    }
 
-}
 </style>

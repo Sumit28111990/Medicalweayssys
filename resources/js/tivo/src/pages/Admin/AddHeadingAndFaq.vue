@@ -80,13 +80,15 @@
                                     {{ validationErrors.imagePosition[index] }}
                                 </span>
                             </div>
-                            <button
-                                class="mt-4 btn  marginLeft "
-                                v-if="index > 0"
-                                @click="removeMore(index, feature.idd)"
-                            >
-                                Remove more
-                            </button>
+                            <div class="d-flex justify-content-end">
+                                <button
+                                    class="mt-2 btn btn-primary"
+                                    v-if="index > 0"
+                                    @click="removeMore(index)"
+                                >
+                                    Remove more
+                                </button>
+                            </div>
 
                             <div
                                 v-for="(
@@ -208,9 +210,10 @@
                                         Remove Image
                                     </button> -->
                                 </div>
-                                <button
+                                <div class="d-flex justify-content-end">
+                                    <button
                                     type="button"
-                                    class="btn marginLeft radius"
+                                    class="btn btn-primary mt-2 "
                                     v-if="subIndex > 0"
                                     @click="
                                         removeField(
@@ -222,6 +225,8 @@
                                 >
                                     Remove field
                                 </button>
+                                </div>
+                               
                             </div>
                             <hr />
                         </div>
@@ -550,6 +555,7 @@ export default {
                     imagePosition: [],
                 };
             } else {
+                let third = [];
                 console.log(this.validationErrors, "validerror");
                 const firstErrorIndex =
                     this.validationErrors.headline.findIndex(
@@ -568,7 +574,8 @@ export default {
                     this.validationErrors.description[0].findIndex(
                         (error) => error !== ""
                     );
-
+                third.push(thirdErrorIndex);
+                console.log(third, "third");
                 console.log(thirdErrorIndex, "thirdErrorIndex");
                 console.log(fourErrorIndex, "fourErrorIndex");
                 if (firstErrorIndex !== -1) {
@@ -579,7 +586,13 @@ export default {
                     ][0].focus();
                 } else if (thirdErrorIndex !== -1) {
                     console.log("ptatik");
-                    this.$refs["featureNameRef" + thirdErrorIndex][0].focus();
+                    third.forEach((item) => {
+                        console.log("hgghhgghhghg");
+                        const refName = "featureNameRef" + item;
+                        const refIndex = item;
+                        console.log(this.$refs[refName][refIndex], "hhjdshsdh");
+                        this.$refs[refName][refIndex].focus();
+                    });
                 } else if (fourErrorIndex !== -1) {
                     console.log("pintu");
                     this.$refs[
@@ -794,34 +807,12 @@ button[type="submit"]:hover {
 .marginLeft {
     margin-left: 720px !important;
 }
+.marginLeft2 {
+    margin-left: 720px !important;
+}
 .default-according.style-1 button[aria-expanded="false"]:before {
     content: "\eb73" !important;
     font-family: IcoFont;
 }
-@media only screen and (width: 768px) {
-    .marginLeft {
-    margin-left: 512px !important;
-}
-
-}
-@media only screen and (width: 425px)  {
-    .marginLeft {
-    margin-left: 215px !important;
-}
-
-}
-@media only screen and (width: 320px)  {
-    .marginLeft {
-    margin-left: 110px !important;
-}
-
-}
-@media only screen and (width: 375px)  {
-    .marginLeft {
-    margin-left: 164px !important;
-}
-
-}
-
 
 </style>

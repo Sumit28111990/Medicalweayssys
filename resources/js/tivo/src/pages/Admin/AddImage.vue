@@ -123,7 +123,7 @@
                                     v-for="(file, index) in imagePreview"
                                     :key="index"
                                 >
-                                    <img :src="file.url" :alt="file.name" />
+                                    <img :src="file.url" :alt="file.name" class="imageMargin" />
                                     <button
                                         class="btn btn-danger mt-4"
                                         @click="removeImage(index)"
@@ -312,5 +312,10 @@ img {
 .error {
     font-size: 14px;
     margin-top: 5px;
+}
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+    .imageMargin {
+        margin-top: 30px;
+    }
 }
 </style>

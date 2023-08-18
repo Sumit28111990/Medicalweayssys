@@ -73,7 +73,7 @@
                                     v-if="validationErrors.image[index]"
                                     >{{ validationErrors.image[index] }}</span
                                 >
-                                <img :src="feature.url" v-if="feature.url" />
+                                <img :src="feature.url" v-if="feature.url" class="imageMargin" />
                                 <!-- <button
                                     class="mt-2 btn btn-danger radius"
                                     type="button"
@@ -86,15 +86,17 @@
                                     alt="nn"
                                 /> -->
                             </div>
+                            <div class="d-flex justify-content-end">
+                                <button
+                                    class=" btn btn-primary mt-2 "
+                                    type="button"
+                                    @click="removeOneTilte(index, feature.idd)"
+                                    v-if="index > 0"
+                                >
+                                    Remove
+                                </button>
+                            </div>
 
-                            <button
-                                class="marginLeft btn radius removeButton"
-                                type="button"
-                                @click="removeOneTilte(index, feature.idd)"
-                                v-if="index > 0"
-                            >
-                                Remove
-                            </button>
                             <hr />
                         </div>
 
@@ -447,30 +449,16 @@ button[type="submit"]:hover {
 }
 .marginLeft {
     margin-left: 770px !important;
-}@media only screen and (width: 768px) {
-    .marginLeft {
-    margin-left: 546px !important;
 }
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+
+.imageMargin{
+  margin-top: 10px ;
 
 }
-@media only screen and (width: 425px)  {
-    .marginLeft {
-    margin-left: 252px !important;
-}
 
-}
-@media only screen and (width: 320px)  {
-    .marginLeft {
-    margin-left: 148px !important;
-}
 
-}
-@media only screen and (width: 375px)  {
-    .marginLeft {
-    margin-left: 200px !important;
-}
-
-}
+    }
 /* .removeButton{
     padding: 10px 20px;
     background-color: none !important;

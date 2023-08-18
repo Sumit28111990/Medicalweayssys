@@ -47,13 +47,16 @@
                                     }}</span
                                 >
                             </div>
-                            <button
-                                class="btn marginLeft mt-4 radius"
+                            <div class="d-flex justify-content-end">
+                                <button
+                                class="btn mt-2 btn-primary "
                                 @click="removeOneTitle(index, feature.idd)"
                                 v-if="index > 0"
                             >
                                 Remove
                             </button>
+                            </div>
+                          
 
                             <!-- <div>
            <label for="image">Feature Image:</label>

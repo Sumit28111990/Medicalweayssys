@@ -82,8 +82,8 @@
                   </button>
   
                   <div v-if="imagePreviews.length > 0">
-                    <div v-for="(file, index) in imagePreviews" :key="index">
-                      <img :src="file.url" :alt="file.name" />
+                    <div v-for="(file, index) in imagePreviews" :key="index" >
+                      <img :src="file.url" :alt="file.name"  class="imageMargin"/>
                       <button
                       type="button"
                         class="btn btn-danger mt-4 radius"
@@ -346,5 +346,15 @@
     border-radius: 22px;
     margin-left: 4px;
   }
+
+  @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+
+    .imageMargin{
+      margin-top: 30px ;
+
+    }
+
+    
+        }
   </style>
   

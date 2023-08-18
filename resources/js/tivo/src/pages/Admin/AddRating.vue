@@ -89,42 +89,35 @@
         </div>
         <span> Table to display reviews</span>
         <hr />
-        <table class="table tableResponsive mt-4" v-if="reviews.length > 0">
-            <thead>
-                <tr>
-                    <th>S/N</th>
-                    <th>User Name</th>
-                    <th>Rating</th>
-                    <th>Location</th>
-                    <th>Review</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(review, index) in reviews" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td class="capitalize">{{ review.user_name }}</td>
-                    <td class="capitalize">{{ review.rating }}</td>
-                    <td class="capitalize">{{ review.location }}</td>
-                    <!-- <td class="capitalize">{{ review.review }}</td> -->
-                    <td class="capitalize">
-                        {{ getFirstFiveWords(review.review) }}
-                    </td>
-
-                    <td>
-                        <i
-                            className="fa fa-pencil-square-o fa-lg"
-                            @click="editReview(index)"
-                        ></i>
-
-                        <i
-                            className="fa fa-trash-o fa-lg m-l-5 "
-                            @click="deleteReview(index)"
-                        ></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table mt-4" v-if="reviews.length > 0">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>User Name</th>
+                        <th>Rating</th>
+                        <th>Location</th>
+                        <th>Review</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(review, index) in reviews" :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td class="capitalize">{{ review.user_name }}</td>
+                        <td class="capitalize">{{ review.rating }}</td>
+                        <td class="capitalize">{{ review.location }}</td>
+                        <td class="capitalize">
+                            {{ getFirstFiveWords(review.review) }}
+                        </td>
+                        <td>
+                            <i class="fa fa-pencil-square-o fa-lg" @click="editReview(index)"></i>
+                            <i class="fa fa-trash-o fa-lg m-l-5" @click="deleteReview(index)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div v-if="reviews != null">
             <ul class="pagination justify-content-end pagination-primary">
                 <li
@@ -218,7 +211,6 @@ export default {
             if (!this.ratingObject.review) {
                 this.errors.review = "The review Field is required";
             }
-           
 
             if (Object.values(this.errors).some((error) => error !== "")) {
                 // Focus on the first input field with an error
@@ -448,22 +440,19 @@ export default {
     text-transform: capitalize !important;
 }
 
-@media only screen and (width: 425px)  {
+@media only screen and (width: 425px) {
     .tableResponsive {
-    width: 100vh !important;
+        width: 100vh !important;
+    }
 }
-
-}
-@media only screen and (width: 320px)  {
+@media only screen and (width: 320px) {
     .tableResponsive {
-    margin-left: 148px !important;
+        margin-left: 148px !important;
+    }
 }
-
-}
-@media only screen and (width: 375px)  {
+@media only screen and (width: 375px) {
     .tableResponsive {
-    margin-left: 200px !important;
-}
-
+        margin-left: 200px !important;
+    }
 }
 </style>
