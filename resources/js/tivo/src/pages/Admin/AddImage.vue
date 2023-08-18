@@ -34,7 +34,7 @@
                                     <div class="col-sm-12">
                                         <div class="mb-3">
                                             <label class="form-label"
-                                                >Product Price</label
+                                                >Product Price</label 
                                             >
                                             <input
                                                 class="form-control"
@@ -112,7 +112,7 @@
                             </button>
 
                             <button
-                                class="btn btn-primary mt-4"
+                                class="btn btn-primary mt-4 marginleft"
                                 @click="AddProduct"
                             >
                                 Add
@@ -312,6 +312,9 @@ img {
 .error {
     font-size: 14px;
     margin-top: 5px;
+}
+.marginleft{
+    margin-left: 4px;
 }
 @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
     .imageMargin {

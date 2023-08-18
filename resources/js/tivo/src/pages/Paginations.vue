@@ -140,5 +140,19 @@ export default {
 .google-pagination span {
   margin: 0 5px;
 }
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+  .pagination-item {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 3px !important;
+    border: none;
+    background: none;
+    color: #333;
+  }
+
+  .google-pagination li[data-v-08925760] {
+    margin: 0 1px;
+  }
+}
 
 </style>

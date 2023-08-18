@@ -906,7 +906,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive theme-scrollbar data-table">
-                    <div class="col-md-12 alignment">
+                    <div class="col-md-12  rowData">
                         <div class="col-md-6">
                             <button
                                 class="btn btn-primary radius"
@@ -917,10 +917,10 @@
                                 Create property
                             </button>
                         </div>
-                        <div class="mb-3 col-md-6 row justify-content-end">
+                        <div class="mb-3 col-md-6 rowData justify-content-end">
                             <label
                                 for="table-complete-search"
-                                class="col-xs-3 col-sm-auto col-form-label"
+                                class="col-xs-3 col-sm-auto col-form-label colFormLabel"
                                 >Search:</label
                             >
                             <div class="col-xs-3 col-sm-auto">

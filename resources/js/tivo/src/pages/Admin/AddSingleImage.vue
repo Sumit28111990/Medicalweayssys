@@ -49,6 +49,12 @@
                             >
                                 Cancel
                             </button>
+                            <button
+                            class="btn btn-primary mt-4 marginleft"
+                            @click="submitData"
+                        >
+                            Submit
+                        </button>
 
                             <div v-if="imagePreview1.length > 0">
                                 <div
@@ -108,12 +114,7 @@
                             </div>
                         </div> -->
 
-                        <button
-                            class="btn btn-primary mt-4"
-                            @click="submitData"
-                        >
-                            Submit
-                        </button>
+                       
                         <!-- <button
                             class="mt-4 btn btn-primary ml-4"
                             @click="Update()"
@@ -397,6 +398,9 @@ img {
     margin: auto;
     display: block;
     margin-bottom: 10px;
+}
+.marginleft{
+    margin-left: 4px;
 }
 @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
     .imageMargin {
