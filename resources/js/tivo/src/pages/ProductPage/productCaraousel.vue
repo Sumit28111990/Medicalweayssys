@@ -123,7 +123,7 @@ export default {
     },
 };
 </script>
-<style>
+<!-- <style>
 .swiper-container {
     margin-top: 50px;
     display: flex;
@@ -139,6 +139,91 @@ export default {
 
 .swiper-slide {
     flex: 0 0 286px;
+}
+.swiper-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.star-full {
+    color: #0096d9;
+}
+.swiper-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+}
+
+.swiper-button-prev {
+    left: -27px;
+    font-size: 15px;
+}
+
+.swiper-button-next {
+    right: -22px;
+    font-size: 15px;
+}
+
+.star-half {
+    position: relative;
+    color: #0096d9;
+    width: 0.5em;
+    overflow: hidden;
+}
+
+.star-half:before {
+    content: "\f089";
+    position: absolute;
+    left: 0;
+}
+
+.star-empty {
+    color: #ccc;
+}
+.review-br {
+    padding: 18px;
+    border-radius: 26px;
+    border: 4px solid #011f27;
+}
+.jenna {
+    font-weight: 600;
+    font-size: 18px;
+}
+.rating-bar {
+    margin-bottom: 8px;
+}
+</style> -->
+<style>
+.swiper-container {
+    margin-top: 50px;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.swiper-wrapper {
+    display: flex;
+    margin-right: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.swiper-slide {
+    flex: 0 0 294px;
 }
 .swiper-container::-webkit-scrollbar {
     width: 0;

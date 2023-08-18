@@ -119,7 +119,7 @@ export default {
 }
 .thumbnail-image {
     width: 75px !important;
-    height: auto;
+    height: 50px !important;
     cursor: pointer;
     opacity: 0.6;
 }

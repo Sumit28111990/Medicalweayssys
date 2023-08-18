@@ -191,4 +191,8 @@ export default {
 .des-cription {
     padding: 10px;
 }
+.default-according.style-1 button[aria-expanded=false]:before {
+    content: "\eb73" !important;
+    font-family: IcoFont;
+}
 </style>

@@ -5,20 +5,22 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
+                            <!-- {{ feature }} -->
                             <div>
                                 <input
                                     type="hidden"
                                     v-model="features[index].idd"
                                 />
-                                <label for="name"
+                                <label :for="'name' + index"
                                     >Feature Name:{{ index }}</label
                                 >
                                 <input
                                     class="form-control"
+                                    :id="'name' + index"
                                     type="text"
                                     placeholder="Enter Product name"
                                     v-model="features[index].name"
-                                    ref="featureNameInput"
+                                    :ref="`featureNameInput${index}`"
                                 />
                                 <span
                                     class="error text-danger"
@@ -28,16 +30,17 @@
                             </div>
 
                             <div>
-                                <label for="description"
+                                <label :for="'description' + index"
                                     >Feature Description:{{ index }}</label
                                 >
                                 <textarea
                                     class="form-control"
                                     placeholder="Enter Product Description"
                                     v-model="features[index].description"
-                                    
                                     rows="4"
                                     cols="50"
+                                    :id="'description' + index"
+                                    :ref="`featureDescriptionInput${index}`"
                                 >
                                 </textarea>
                                 <!-- <input
@@ -56,20 +59,21 @@
                             </div>
 
                             <div>
-                                <label for="image"
+                                <label :for="'image' + index"
                                     >Feature Image:{{ index }}</label
                                 >
                                 <input
                                     class="form-control"
                                     type="file"
                                     @change="handleImageUpload($event, index)"
+                                    :id="'image' + index"
                                 />
                                 <span
                                     class="error text-danger"
                                     v-if="validationErrors.image[index]"
                                     >{{ validationErrors.image[index] }}</span
                                 >
-                                <img :src="feature.url" v-if="feature.url" />
+                                <img :src="feature.url" v-if="feature.url" class="imageMargin" />
                                 <!-- <button
                                     class="mt-2 btn btn-danger radius"
                                     type="button"
@@ -82,15 +86,17 @@
                                     alt="nn"
                                 /> -->
                             </div>
+                            <div class="d-flex justify-content-end">
+                                <button
+                                    class=" btn btn-primary mt-2 "
+                                    type="button"
+                                    @click="removeOneTilte(index, feature.idd)"
+                                    v-if="index > 0"
+                                >
+                                    Remove
+                                </button>
+                            </div>
 
-                            <button
-                                class="marginLeft btn radius removeButton" 
-                                type="button"
-                                @click="removeOneTilte(index)"
-                                v-if="index > 0"
-                            >
-                                Remove
-                            </button>
                             <hr />
                         </div>
 
@@ -131,6 +137,7 @@ import axios from "axios";
 export default {
     data() {
         return {
+            activeTabIndex: 0,
             existId: [],
             EditIds: null,
             parentId: "",
@@ -154,9 +161,30 @@ export default {
         };
     },
     methods: {
-        removeOneTilte(index) {
-            console.log(index, "index");
-            this.features.splice(index, 1);
+        removeOneTilte(index, idd) {
+            if (confirm(`Are you sure you want to remove the Feature?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
+
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-feature/${idd}`,
+
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
 
         cancelAdd() {
@@ -284,6 +312,22 @@ export default {
                     image: [],
                 };
                 this.imagePreview = [];
+            } else {
+                const firstErrorIndex = this.validationErrors.name.findIndex(
+                    (error) => error !== ""
+                );
+                const secondErrorIndex =
+                    this.validationErrors.description.findIndex(
+                        (error) => error !== ""
+                    );
+
+                if (firstErrorIndex !== -1) {
+                    this.$refs["featureNameInput" + firstErrorIndex][0].focus();
+                } else if (secondErrorIndex !== -1) {
+                    this.$refs[
+                        "featureDescriptionInput" + secondErrorIndex
+                    ][0].focus();
+                }
             }
         },
         getFormDataW(id) {
@@ -341,9 +385,8 @@ export default {
             console.log(dataString);
 
             this.features[index].url = null;
-            this.handleImageUpload()
+            this.handleImageUpload();
         },
-        
     },
     mounted() {
         const url = new URL(window.location.href);
@@ -389,8 +432,7 @@ img {
     margin-bottom: 10px;
 }
 
-button[type="submit"] 
-button[type="button"]{
+button[type="submit"] button[type="button"] {
     padding: 10px 20px;
     /* background-color: #007bff; */
     color: #fff;
@@ -408,6 +450,15 @@ button[type="submit"]:hover {
 .marginLeft {
     margin-left: 770px !important;
 }
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+
+.imageMargin{
+  margin-top: 10px ;
+
+}
+
+
+    }
 /* .removeButton{
     padding: 10px 20px;
     background-color: none !important;

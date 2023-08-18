@@ -5,12 +5,15 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div>
+                            <input type="hidden" v-model="idd" />
                             <label for="youtubeLink">YouTube Link:</label>
                             <input
                                 class="form-control"
                                 type="text"
                                 placeholder="Enter YouTube Link"
                                 v-model="youtubelink"
+                                id="youtubeLink"
+                                ref="youtubeInput"
                             />
                             <span
                                 class="error text-danger"
@@ -18,17 +21,19 @@
                                 >{{ validationErrors.youtubelink }}</span
                             >
                         </div>
-                        <button class="mt-4 btn btn-primary radius" type="submit">
-                            Submit
+                        <button
+                            class="mt-4 btn radius"
+                            type="button"
+                            @click="clear(this.idd)"
+                        >
+                            Clear
                         </button>
-                        <!-- <button
-                            class="mt-4 btn btn-primary ml-4"
-                            @click="Update()"
-                            v-if="EditIds !== null"
+                        <button
+                            class="mt-4 btn btn-primary radius"
                             type="submit"
                         >
-                            Update
-                        </button> -->
+                            Submit
+                        </button>
                     </form>
                 </div>
             </div>
@@ -43,6 +48,7 @@ import axios from "axios";
 export default {
     data() {
         return {
+            idd:null,
             EditIds: null,
             parentId: "",
             youtubelink: "",
@@ -53,6 +59,45 @@ export default {
     },
 
     methods: {
+        clear(idd) {
+            console.log(idd)
+            const url = new URL(window.location.href);
+            const id = url.pathname.split("/").pop();
+            const isNum = /^\d+$/.test(id);
+            if (isNum) {
+                this.parentId = id;
+            }
+            const data = {
+                youtubelink: this.youtubelink,
+                parent_id: this.parentId,
+            };
+            console.log(data);
+            if (confirm(`Are you sure you want to remove the Clear and not show in preview page?`)) {
+                this.youtubelink = "";
+              
+                let token = localStorage.getItem("token");
+
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/my-product-delete-youtubelink/${idd}`,
+
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+
+        },
         validateForm() {
             this.validationErrors.youtubelink = this.youtubelink
                 ? ""
@@ -77,6 +122,8 @@ export default {
                         // console.log("iff sildebar")
                     } else {
                         this.youtubelink = res.data.result.youtubelink;
+                        this.idd=res.data.result.id
+                        
                     }
                 })
                 .catch((error) => {
@@ -91,6 +138,7 @@ export default {
             if (isNum) {
                 this.parentId = id;
             }
+
             if (this.validateForm()) {
                 const data = {
                     youtubelink: this.youtubelink,
@@ -113,8 +161,8 @@ export default {
                     )
                     .then((res) => {
                         console.log(res.data);
-                        // this.$router.replace("/admin"); 
-                        window.location.reload();
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
                         // Handle response
                         // this.$router.push({ name: AddFeatureVue});
                     })
@@ -122,6 +170,8 @@ export default {
                         console.error(error);
                         // Handle error
                     });
+            } else {
+                this.$refs.youtubeInput.focus();
             }
         },
         //   Update(){

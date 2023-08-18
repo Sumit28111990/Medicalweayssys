@@ -5,7 +5,6 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
-                            <!-- {{ this.features }} -->
                             <div>
                                 <input type="hidden" v-model="feature.idd" />
 
@@ -18,6 +17,7 @@
                                     type="text"
                                     placeholder="Enter Headline"
                                     v-model="feature.headline"
+                                    :ref="'headlineRef' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -71,6 +71,7 @@
                                     type="text"
                                     placeholder="Enter Text left/right only"
                                     v-model="feature.imagePosition"
+                                    :ref="'imagePositionRef' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -79,13 +80,15 @@
                                     {{ validationErrors.imagePosition[index] }}
                                 </span>
                             </div>
-                            <button
-                                class="mt-4 btn btn-primary ml-4 removeMoreMargin"
-                                v-if="index > 0"
-                                @click="removeMore(index)"
-                            >
-                                Remove more
-                            </button>
+                            <div class="d-flex justify-content-end">
+                                <button
+                                    class="mt-2 btn btn-primary"
+                                    v-if="index > 0"
+                                    @click="removeMore(index)"
+                                >
+                                    Remove more
+                                </button>
+                            </div>
 
                             <div
                                 v-for="(
@@ -105,10 +108,11 @@
                                     >
                                     <input
                                         class="form-control"
-                                        :id="'name' + index"
+                                        :id="'name' + index + subIndex"
                                         type="text"
                                         placeholder="Enter Product name"
                                         v-model="subFeature.name"
+                                        :ref="'featureNameRef' + subIndex"
                                     />
                                     <span
                                         class="error text-danger"
@@ -146,6 +150,9 @@
                                         :id="'description' + index + subIndex"
                                         rows="4"
                                         cols="50"
+                                        :ref="
+                                            'featureDescriptionRef' + subIndex
+                                        "
                                     >
                                     </textarea>
                                     <span
@@ -203,14 +210,23 @@
                                         Remove Image
                                     </button> -->
                                 </div>
-                                <button
+                                <div class="d-flex justify-content-end">
+                                    <button
                                     type="button"
-                                    class="btn btn-primary marginLeft radius"
+                                    class="btn btn-primary mt-2 "
                                     v-if="subIndex > 0"
-                                    @click="removeField(index, subIndex)"
+                                    @click="
+                                        removeField(
+                                            index,
+                                            subIndex,
+                                            subFeature.idd
+                                        )
+                                    "
                                 >
                                     Remove field
                                 </button>
+                                </div>
+                               
                             </div>
                             <hr />
                         </div>
@@ -281,15 +297,58 @@ export default {
     },
 
     methods: {
-        removeField(index, subIndex) {
+        removeField(index, subIndex, id) {
+            console.log(index, "index", subIndex, "subindex", id);
             this.features[index].subFeatures.splice(subIndex, 1);
             this.validationErrors.name[index].splice(subIndex, 1);
             this.validationErrors.description[index].splice(subIndex, 1);
             this.validationErrors.image[index].splice(subIndex, 1);
             this.imagePreview[index].splice(subIndex, 1);
+            // if (
+            //     confirm(`Are you Sure you want to remove the Subspecification?`)
+            // ) {
+            //     let token = localStorage.getItem("token");
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-subspecificaion/${id}`,
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((response) => {
+            //             console.log(response)
+            //         }).catch((error)=>{
+            //             console.erroe(error)
+            //         })
+            // }
         },
-        removeMore(index) {
+        removeMore(index, id) {
+            console.log(index, id);
             this.features.splice(index, 1);
+            // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+            //     let token = localStorage.getItem("token");
+
+            //     axios
+            //         .delete(
+            //             `${config.apiUrl}/api/delete-my-product-specification/${id}`,
+
+            //             {
+            //                 headers: {
+            //                     Authorization: `Bearer ${token}`,
+            //                 },
+            //             }
+            //         )
+            //         .then((res) => {
+            //             console.log("Error", res);
+            //             // this.$router.replace("/admin");
+            //             // window.location.reload();
+            //         })
+            //         .catch((error) => {
+            //             console.error(error);
+            //         });
+            // }
         },
         handleImageUpload(event, index, subIndex) {
             const files = event.target.files;
@@ -352,6 +411,7 @@ export default {
                         return "";
                     }
                 );
+
                 return subFeatureErrors;
             });
 
@@ -369,12 +429,15 @@ export default {
                     return subFeatureErrors;
                 }
             );
-
+            console.log(Object.values(this.validationErrors), "obejct");
+            Object.values(this.validationErrors).every((errors) =>
+                errors.every((error) => !error)
+            );
+            // console.log(isValid,'vlisa')
             return isValid;
         },
 
         submitForm() {
-            console.log("submit");
             const url = new URL(window.location.href);
             const id = url.pathname.split("/").pop();
             const isNum = /^\d+$/.test(id);
@@ -383,6 +446,7 @@ export default {
             }
 
             if (this.validateForm()) {
+                console.log("sub");
                 const formData = new FormData();
                 this.features.forEach((feature, i) => {
                     formData.append(`title[${i}]`, feature.headline);
@@ -458,7 +522,7 @@ export default {
                     .then((response) => {
                         console.log("Success:", response);
 
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch((error) => {
                         console.error("Error:", error);
@@ -481,6 +545,7 @@ export default {
                         ],
                     },
                 ];
+
                 this.validationErrors = {
                     headline: [],
                     name: [[]],
@@ -489,6 +554,51 @@ export default {
                     additionalImage: [],
                     imagePosition: [],
                 };
+            } else {
+                let third = [];
+                console.log(this.validationErrors, "validerror");
+                const firstErrorIndex =
+                    this.validationErrors.headline.findIndex(
+                        (error) => error !== ""
+                    );
+                const secondErrorIndex =
+                    this.validationErrors.imagePosition.findIndex(
+                        (error) => error !== ""
+                    );
+                const thirdErrorIndex = this.validationErrors.name.findIndex(
+                    (errors) => {
+                        return errors.some((error) => error !== "");
+                    }
+                );
+                const fourErrorIndex =
+                    this.validationErrors.description[0].findIndex(
+                        (error) => error !== ""
+                    );
+                third.push(thirdErrorIndex);
+                console.log(third, "third");
+                console.log(thirdErrorIndex, "thirdErrorIndex");
+                console.log(fourErrorIndex, "fourErrorIndex");
+                if (firstErrorIndex !== -1) {
+                    this.$refs["headlineRef" + firstErrorIndex][0].focus();
+                } else if (secondErrorIndex !== -1) {
+                    this.$refs[
+                        "imagePositionRef" + secondErrorIndex
+                    ][0].focus();
+                } else if (thirdErrorIndex !== -1) {
+                    console.log("ptatik");
+                    third.forEach((item) => {
+                        console.log("hgghhgghhghg");
+                        const refName = "featureNameRef" + item;
+                        const refIndex = item;
+                        console.log(this.$refs[refName][refIndex], "hhjdshsdh");
+                        this.$refs[refName][refIndex].focus();
+                    });
+                } else if (fourErrorIndex !== -1) {
+                    console.log("pintu");
+                    this.$refs[
+                        "featureDescriptionRef" + fourErrorIndex
+                    ][0].focus();
+                }
             }
         },
 
@@ -695,6 +805,14 @@ button[type="submit"]:hover {
     margin-left: 4px;
 }
 .marginLeft {
-    margin-left: 727px !important;
+    margin-left: 720px !important;
 }
+.marginLeft2 {
+    margin-left: 720px !important;
+}
+.default-according.style-1 button[aria-expanded="false"]:before {
+    content: "\eb73" !important;
+    font-family: IcoFont;
+}
+
 </style>

@@ -4,6 +4,7 @@
             <div class="card-body">
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
+                        <!-- {{ features }} -->
                         <div v-for="(feature, index) in features" :key="index">
                             <div>
                                 <label for="name"
@@ -14,6 +15,7 @@
                                     type="text"
                                     placeholder="Enter FAQ name"
                                     v-model="features[index].name"
+                                    :ref="'nameInput' + index"
                                 />
                                 <span
                                     class="error text-danger"
@@ -33,6 +35,7 @@
                                     name="w3review"
                                     rows="4"
                                     cols="50"
+                                    :ref="'DescriptionInput' + index"
                                 >
                                 </textarea>
                                 <!-- <input class="form-control" type="text" placeholder="Enter Product Description" v-model="features[index].answer" /> -->
@@ -44,8 +47,16 @@
                                     }}</span
                                 >
                             </div>
-                            <button class="btn  marginLeft mt-4 radius" @click="removeOneTitle(index)" v-if="index > 0">Remove</button>
-
+                            <div class="d-flex justify-content-end">
+                                <button
+                                class="btn mt-2 btn-primary "
+                                @click="removeOneTitle(index, feature.idd)"
+                                v-if="index > 0"
+                            >
+                                Remove
+                            </button>
+                            </div>
+                          
 
                             <!-- <div>
            <label for="image">Feature Image:</label>
@@ -53,7 +64,7 @@
            <span class="error text-danger" v-if="validationErrors.image[index]">{{ validationErrors.image[index] }}</span>
            <img :src="imagePreview[index].url" :alt="imagePreview[index].name" v-if="imagePreview[index]" />
          </div> -->
-         <hr>
+                            <hr />
                         </div>
 
                         <button
@@ -92,6 +103,7 @@
 </template>
 
 <script>
+import { getTransitionRawChildren } from "vue";
 import config from "../../config";
 import axios from "axios";
 export default {
@@ -116,9 +128,29 @@ export default {
         };
     },
     methods: {
-        removeOneTitle(index) {
-            console.log(index);
-            this.features.splice(index, 1);
+        removeOneTitle(index, idd) {
+            if (confirm(`Are you sure you want to remove the FAQ?`)) {
+                this.features.splice(index, 1);
+                let token = localStorage.getItem("token");
+
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-my-product-faq/${idd}`,
+
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
         cancelAdd() {
             if (this.features.length > 1) {
@@ -195,7 +227,17 @@ export default {
                 //   this.$refs.imageInput.forEach((input) => {
                 //     input.value = null;
                 //   });
-            }
+            } else {
+        const firstErrorIndex = this.validationErrors.name.findIndex(error => error !== '');
+        const secondErrorIndex = this.validationErrors.description.findIndex(error => error !== '');
+
+        if (firstErrorIndex !== -1) {
+            this.$refs['nameInput' + firstErrorIndex][0].focus();
+        }
+        else if (secondErrorIndex !== -1) {
+            this.$refs['DescriptionInput' + secondErrorIndex][0].focus();
+        }
+    }
         },
         getFormDataW(id) {
             let token = localStorage.getItem("token");
@@ -224,6 +266,7 @@ export default {
                             var ddd = {
                                 name: res.data.result[index].title,
                                 description: res.data.result[index].description,
+                                idd: res.data.result[index].id,
                             };
 
                             Naveen.push(ddd);
@@ -347,8 +390,6 @@ input[type="file"] {
     box-sizing: border-box;
 }
 
-
-
 button[type="submit"] {
     padding: 10px 20px;
     background-color: #007bff;
@@ -361,10 +402,34 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
-.marginLeft{
-  margin-left:  763px !important
+.marginLeft {
+    margin-left: 763px !important;
 }
-.radius{
-    border-radius: 22px  !important
+.radius {
+    border-radius: 22px !important;
+}
+@media only screen and (width: 768px) {
+    .marginLeft {
+    margin-left: 546px !important;
+}
+
+}
+@media only screen and (width: 425px)  {
+    .marginLeft {
+    margin-left: 252px !important;
+}
+
+}
+@media only screen and (width: 320px)  {
+    .marginLeft {
+    margin-left: 148px !important;
+}
+
+}
+@media only screen and (width: 375px)  {
+    .marginLeft {
+    margin-left: 200px !important;
+}
+
 }
 </style>

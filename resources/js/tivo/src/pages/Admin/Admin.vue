@@ -146,38 +146,38 @@
                     No Content Found
                 </div>
                 <div v-if="mapData != null">
-                    <ul
-                        class="pagination justify-content-end pagination-primary"
-                    >
-                        <li
-                            style="margin-top: 2px; margin-right: 5px"
-                            class="page-item d-flex"
+                        <ul
+                            class="pagination justify-content-end pagination-primary"
                         >
-                            <span class="mt-3 mx-1" style="color: black"
-                                >Total Count
-                                <button
-                                    style="
-                                        border: none;
-                                        margin-top: 4px;
-                                        border-radius: 7px;
-                                        color: white;
-                                        background: rgb(13, 110, 253);
-                                        height: 30px;
-                                    "
-                                >
-                                    {{ pagination.total }}
-                                </button></span
+                            <li
+                                style="margin-top: 2px; margin-right: 5px"
+                                class="page-item d-flex"
                             >
-                        </li>
-                        <li>
-                            <Paginations
-                                :totalCount="pagination.total"
-                                :currentPage="pagination.current_page"
-                                :pageSize="pagination.per_page"
-                                @page-change="handlePageChange"
-                            />
-                        </li>
-                    </ul>
+                                <span class="mt-3 mx-1" style="color: black"
+                                    >Total Count
+                                    <button
+                                        style="
+                                            border: none;
+                                            margin-top: 4px;
+                                            border-radius: 7px;
+                                            color: white;
+                                            background: rgb(13, 110, 253);
+                                            height: 30px;
+                                        "
+                                    >
+                                        {{ pagination.total }}
+                                    </button></span
+                                >
+                            </li>
+                            <li>
+                                <Paginations
+                                    :totalCount="pagination.total"
+                                    :currentPage="pagination.current_page"
+                                    :pageSize="pagination.per_page"
+                                    @page-change="handlePageChange"
+                                />
+                            </li>
+                        </ul>
                 </div>
             </div>
         </div>
