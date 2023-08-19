@@ -5,7 +5,7 @@
                 <div class="swiper-slide" v-for="item in review" :key="item.id">
                     <div class="card review-br">
                         <p class="rating-bar">
-                            <span class="jenna">{{ item.user_name }}</span>
+                            <span  style="text-transform: capitalize" class="jenna">{{ item.user_name }}</span>
                         </p>
                         <p style="font-size: 20px" class="rating-bar">
                             <u style="text-decoration: none">
@@ -17,9 +17,9 @@
                             <br />
                         </p>
                         <p class="rating-bar">
-                            <span class="spring">{{ item.location }}</span>
+                            <span  style="text-transform: capitalize" class="spring">{{ item.location }}</span>
                         </p>
-                        <p class="dolor rating-bar">{{ item.review }}</p>
+                        <p class="dolor rating-bar" style="text-transform: capitalize"  >{{ item.review }} </p>
                     </div>
                 </div>
             </div>

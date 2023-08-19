@@ -73,7 +73,11 @@
                                     v-if="validationErrors.image[index]"
                                     >{{ validationErrors.image[index] }}</span
                                 >
-                                <img :src="feature.url" v-if="feature.url" class="imageMargin" />
+                                <img
+                                    :src="feature.url"
+                                    v-if="feature.url"
+                                    class="imageMargin"
+                                />
                                 <!-- <button
                                     class="mt-2 btn btn-danger radius"
                                     type="button"
@@ -88,7 +92,7 @@
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button
-                                    class=" btn btn-primary mt-2 "
+                                    class="btn btn-primary mt-2"
                                     type="button"
                                     @click="removeOneTilte(index, feature.idd)"
                                     v-if="index > 0"
@@ -451,14 +455,10 @@ button[type="submit"]:hover {
     margin-left: 770px !important;
 }
 @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
-
-.imageMargin{
-  margin-top: 10px ;
-
-}
-
-
+    .imageMargin {
+        margin-top: 10px;
     }
+}
 /* .removeButton{
     padding: 10px 20px;
     background-color: none !important;

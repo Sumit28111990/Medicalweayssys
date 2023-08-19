@@ -212,21 +212,20 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <button
-                                    type="button"
-                                    class="btn btn-primary mt-2 "
-                                    v-if="subIndex > 0"
-                                    @click="
-                                        removeField(
-                                            index,
-                                            subIndex,
-                                            subFeature.idd
-                                        )
-                                    "
-                                >
-                                    Remove field
-                                </button>
+                                        type="button"
+                                        class="btn btn-primary mt-2"
+                                        v-if="subIndex > 0"
+                                        @click="
+                                            removeField(
+                                                index,
+                                                subIndex,
+                                                subFeature.idd
+                                            )
+                                        "
+                                    >
+                                        Remove field
+                                    </button>
                                 </div>
-                               
                             </div>
                             <hr />
                         </div>
@@ -327,7 +326,8 @@ export default {
         removeMore(index, id) {
             console.log(index, id);
             this.features.splice(index, 1);
-            // if (confirm(`Are you sure you want to remove the Sidebar?`)) {
+           
+            // if (confirm(`Are you sure you want to remove the Specification?`)) {
             //     let token = localStorage.getItem("token");
 
             //     axios
@@ -814,5 +814,4 @@ button[type="submit"]:hover {
     content: "\eb73" !important;
     font-family: IcoFont;
 }
-
 </style>

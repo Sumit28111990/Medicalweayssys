@@ -17,7 +17,7 @@
                     />
                 </div>
                 <div class="data-container">
-                    <span class="item-title">{{ item.title }}</span>
+                    <span  style="text-transform: capitalize" class="item-title">{{ item.title }}</span>
                     <div class="accordion">
                         <div
                             v-for="(innerItem, i) in item.subspecification"
@@ -58,7 +58,8 @@
                                             :aria-controls="`collapseicon${innerItem.id}`"
                                         ></button>
                                         <span
-                                            class="tittle"
+                                        style="text-transform: capitalize"
+                                            class="title"
                                             @click="open3(innerItem.id)"
                                             :aria-expanded="
                                                 show3 === innerItem.id
@@ -72,6 +73,7 @@
                                     </h5>
                                 </div>
                                 <div
+                                style="text-transform: capitalize"
                                     class="collapse des-cription"
                                     :id="`collapseicon${innerItem.id}`"
                                     data-bs-parent="#accordionoc"

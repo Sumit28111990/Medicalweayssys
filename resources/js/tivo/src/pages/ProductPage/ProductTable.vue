@@ -1,16 +1,17 @@
 <template>
     <table class="custom-table" v-if="compareProduct.length>0" >
+       
         <thead class="header-table">
             <tr>
                 <th>Professional Series Built-in All-in-One Pump System™</th>
-                <th v-for="item in compareProduct" :key="item.id">
+                <th v-for="item in compareProduct" :key="item.id" style="text-transform: capitalize">
                     {{ item.name }}
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="item in labels" :key="item.id">
-                <td class="white tr-border table-text">
+                <td class="white tr-border table-text" style="text-transform: capitalize">
                     {{ item.name }}
                 </td>
 
@@ -24,7 +25,7 @@
                                 v-if="feature.id === item.id"
                                 src="https://www.medicalsaunas.com/images/frozen/check-j16.png"
                                 class="table-w"
-                                alt=""
+                                alt="comapre tick "
                             />
                         </li>
                     </ul>

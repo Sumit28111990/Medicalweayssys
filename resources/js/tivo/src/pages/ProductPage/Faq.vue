@@ -13,6 +13,7 @@
                         <div class="card-header">
                             <h5 class="mb-0">
                                 <button
+                                style="text-transform: capitalize"
                                     class="btn btn-link collapsed"
                                     @click="open3(item.id)"
                                     :aria-expanded="
@@ -25,6 +26,7 @@
                             </h5>
                         </div>
                         <div
+                        style="text-transform: capitalize"
                             class="collapse"
                             :id="`collapseicon${item.id}`"
                             data-bs-parent="#accordionoc"

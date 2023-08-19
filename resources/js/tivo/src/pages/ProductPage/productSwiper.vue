@@ -18,15 +18,15 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <p class="product-name">Product Name: {{ mapData.name }}</p>
+                <p class="product-name">Product Name:- {{ mapData.name }}</p>
                 <div style="margin-bottom: 10px">
                     <span class="product-name"
-                        >Product Price: ${{ mapData.product_price }}</span
+                        >Product Price:- {{ mapData.product_price }}</span
                     >
                 </div>
                 <div>
                     <span class="product-name"
-                        >Product Discount: ${{ mapData.product_discount }}</span
+                        >Product Discount:- {{ mapData.product_discount }}</span
                     >
                 </div>
             </div>

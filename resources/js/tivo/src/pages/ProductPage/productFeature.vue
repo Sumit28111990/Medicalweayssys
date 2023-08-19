@@ -40,6 +40,7 @@
                                     />
                                 </button>
                                 <span
+                                style="text-transform: capitalize"
                                     class="tittle"
                                     @click="toggleAccordion(item.id)"
                                     :aria-expanded="
@@ -57,7 +58,7 @@
                             data-bs-parent="#accordionoc"
                             :class="show3 === item.id ? 'show' : ''"
                         >
-                            <div class="card-body">
+                            <div class="card-body" style="text-transform: capitalize">
                                 {{ item.description }}
                             </div>
                         </div>

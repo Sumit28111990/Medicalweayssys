@@ -10,7 +10,7 @@
                 :src="this.getFullUrl(item.icon_path)"
                 :alt="item.title ? item.title : 'Product Image'"
             />
-            <span class="marginHeading">{{ item.title }}</span>
+            <span  style="text-transform: capitalize" class="marginHeading">{{ item.title }}</span>
         </div>
     </div>
 </template>

@@ -296,33 +296,53 @@ export default {
                 });
         },
         formSubmit() {
+            console.log(this.datas)
             let blacmck = [];
             function onlyUnique(value, index, array) {
+                // console.log("unique")
+                // console.log(value,index,array)
+                // console.log(array.indexOf(value) === index)
+                // const data= array.indexOf(value)===index
+                // console.log(data,'dtata')
                 return array.indexOf(value) === index;
             }
             this.datas.forEach((ele) => {
+                // console.log(ele)
                 blacmck.push(ele["group_id"]);
             });
+            // console.log(blacmck,'blacmck')
+            // console.log("unique2")
             var unique = blacmck.filter(onlyUnique);
+            // console.log(unique,'unique')
             let entry = [];
             unique.forEach((group, index) => {
+                // console.log(group,'group')
                 let naveen = {};
+                // console.log(naveen,'naveen')
                 let rrr = {
                     groupId: group,
                     data: naveen,
                 };
+                // console.log(rrr,'rrr')
 
                 entry.push(rrr);
+                // console.log(entry,'emtry')
                 this.datas.forEach((ele) => {
                     var id = ele["input_name"];
+                 
                     var checkw = document.getElementById(id);
                    
                     if (ele["group_id"] === group) {
                         var id = ele["input_name"];
+                        // console.log(id,'id')
                         var checkw = document.getElementById(id);
+                        console.log(checkw,'checkw')
                         if (checkw != null) {
+                            // console.log("pppppppppppppppppppppppppppppppp")
                             naveen[id] = checkw.value;
+                            console.log(naveen[id],'id check value')
                             var radioButtons = document.getElementsByName(id);
+                            // console.log(radioButtons,'radiobutton')
                             var selectedValue = null;
                             for (var i = 0; i < radioButtons.length; i++) {
                                 if (radioButtons[i].checked) {
