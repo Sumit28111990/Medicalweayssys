@@ -1266,7 +1266,29 @@ public function deleteProductLink(string $id)
     return $this->sendResponse();
     
 }
+public function deleteMySpecification(string $id){
+    // print_r('wwwwwwwwwwwwwwww');die;
+    $returnData = MyProductSpecifications::find($id);
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->response()->json(['message' => 'Data not found']);
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        return response()->json(['message' => 'Specification deleted successfully']);
+        // $this->apiResponse['message'] = 'Specification deleted successfully';
+        // $this->apiResponse['result'] = [];
+    }
+    // if (!$resource) {
+    //     return response()->json(['message' => 'Specification not found'], 404);
+    // }
 
+    // $resource->delete();
+
+    // return response()->json(['message' => 'Specification deleted successfully']);
+}
 
 }
 

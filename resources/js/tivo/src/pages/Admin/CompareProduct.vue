@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="product-info">
           <div>
-            <h6>Select Compare Product (Maxmium only 3)</h6>
+            <h6 class="compareProductTitle">Select Compare Product (Maxmium only 3)</h6>
             <label for="dropdown">Dropdown:</label>
             <select class="form-control" id="dropdown" v-model="selectedOptions" multiple @change="limitSelection">
               <!-- <option value="">Select Compare Product  </option> -->
@@ -105,5 +105,8 @@ export default {
 #dropdown {
   height: 200px; /* Set the desired height */
   overflow-y: auto; /* Enable vertical scrolling */
+}
+.compareProductTitle{
+  font-size: 16px;
 }
 </style>

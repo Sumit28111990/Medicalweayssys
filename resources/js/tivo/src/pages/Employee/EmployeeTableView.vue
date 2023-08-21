@@ -23,7 +23,7 @@
                             Create Employee
                         </button>
                     </div>
-                    <div class="mb-3 col-md-6 rowData justify-content-end">
+                    <div class="mb-3 col-md-6 rowData justify-content-end resposiveMedia">
                         <label
                             for="table-complete-search"
                             class="col-xs-3 col-sm-auto col-form-label colFormLabel"
@@ -594,5 +594,13 @@ export default {
 .rowData {
     display: flex;
     flex-wrap: wrap;
+}
+@media (max-width: 320px)
+{
+  
+   .resposiveMedia{
+    display: block !important;
+   }
+
 }
 </style>

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <p class="product-name">Product Name:- {{ mapData.name }}</p>
+                <p class="product-name" style="text-transform: capitalize">Product Name:- {{ mapData.name }}</p>
                 <div style="margin-bottom: 10px">
                     <span class="product-name"
                         >Product Price:- {{ mapData.product_price }}</span

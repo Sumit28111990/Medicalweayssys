@@ -5,6 +5,7 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
+                            {{ feature }}
                             <div>
                                 <input type="hidden" v-model="feature.idd" />
 
@@ -84,7 +85,7 @@
                                 <button
                                     class="mt-2 btn btn-primary"
                                     v-if="index > 0"
-                                    @click="removeMore(index)"
+                                    @click="removeMore(index,feature.idd)"
                                 >
                                     Remove more
                                 </button>
@@ -327,28 +328,28 @@ export default {
             console.log(index, id);
             this.features.splice(index, 1);
            
-            // if (confirm(`Are you sure you want to remove the Specification?`)) {
-            //     let token = localStorage.getItem("token");
+            if (confirm(`Are you sure you want to remove the Specification?`)) {
+                let token = localStorage.getItem("token");
 
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-specification/${id}`,
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-specification-field/${id}`,
 
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((res) => {
-            //             console.log("Error", res);
-            //             // this.$router.replace("/admin");
-            //             // window.location.reload();
-            //         })
-            //         .catch((error) => {
-            //             console.error(error);
-            //         });
-            // }
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        console.log("Error", res);
+                        // this.$router.replace("/admin");
+                        // window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         },
         handleImageUpload(event, index, subIndex) {
             const files = event.target.files;

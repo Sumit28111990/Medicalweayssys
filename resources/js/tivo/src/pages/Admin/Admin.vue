@@ -23,7 +23,7 @@
                             Layout
                         </button> -->
                     </div>
-                    <div class="mb-3 col-md-6 rowData justify-content-end">
+                    <div class="mb-3 col-md-6 rowData justify-content-end resposiveMedia">
                         <label
                             for="table-complete-search"
                             class="col-xs-3 col-sm-auto col-form-label colFormLabel"
@@ -514,5 +514,17 @@ export default {
 <style scoped>
 .ml-4 {
     margin-left: 4px !important;
+}
+@media (max-width: 320px)
+{
+   /* html
+   {
+      font-size:0.1em;
+   } */
+   .resposiveMedia{
+    display: inline-block;
+    /* justify-content: none !important; */
+   }
+
 }
 </style>
