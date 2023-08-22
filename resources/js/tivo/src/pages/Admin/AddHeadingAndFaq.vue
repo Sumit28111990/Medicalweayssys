@@ -5,7 +5,7 @@
                 <div class="product-info">
                     <form @submit.prevent="submitForm">
                         <div v-for="(feature, index) in features" :key="index">
-                            {{ feature }}
+                            <!-- {{ feature }} -->
                             <div>
                                 <input type="hidden" v-model="feature.idd" />
 

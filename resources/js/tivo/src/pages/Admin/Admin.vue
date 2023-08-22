@@ -283,7 +283,9 @@ export default {
         //   }
         // },
         removePrefix(data) {
+            // console.log(data,'removeprefix')
             if (data) {
+                // console.log(data.split("_")[1])
                 return data.split("_")[1]
                     ? data.split("_")[1]
                     : data.split("_")[0];
@@ -358,10 +360,14 @@ export default {
             // console.log(id,'id')
         },
         convertCamelCaseToNormalString(camelCase) {
+            // console.log(camelCase,'camelcase')
             const normalString = camelCase.replace(/([A-Z])/g, " $1");
+            // console.log(normalString.slice(1))
+            // console.log(normalString.charAt(0).toUpperCase())
 
             const capitalizedString =
                 normalString.charAt(0).toUpperCase() + normalString.slice(1);
+                // console.log(capitalizedString)
             return capitalizedString.trim();
         },
         getFormFieldsList() {
@@ -385,9 +391,11 @@ export default {
                         if (datas.length == 0) {
                             this.keyValue = keyValueNot;
                             // console.log(this.keyValue,'jeycal')
+                            // console.log("object")
                         }
                         const dataMain = [];
                         for (let key in datas) {
+                            // console.log(key)
                             if (datas.hasOwnProperty(key)) {
                                 // console.log(key,'keys id ')
                                 const value = datas[key];
@@ -395,10 +403,8 @@ export default {
                                 let tableTH = [];
                                 let dataIn = {};
                                 for (let key1 in value) {
-                                    // console.log(key1,'inside of key')
                                     var keyNew = this.removePrefix(key1);
                                     if (value.hasOwnProperty(key1)) {
-                                        // console.log(key1,'inside of value')
                                         if (key === "0") {
                                             if (
                                                 key1 != "is_deleted" &&
@@ -420,6 +426,7 @@ export default {
                                             key1 != "updated_at" &&
                                             key1 != "uuid"
                                         ) {
+                                           
                                             dataIn[key1] = value[key1];
                                             // console.log(dataIn[key1],'jjjjasdasdasdadadsad')
                                             // console.log(dataIn,'bbbbbbbbbbbbbbbbbbbb')
@@ -428,6 +435,7 @@ export default {
                                 }
 
                                 dataMain.push(dataIn);
+                                // console.log(dataMain,'dddddd')
                                 if (key === "0") {
                                     this.keyValue = tableTH;
                                     // console.log(this.keyValue,'key')
@@ -447,6 +455,7 @@ export default {
         },
 
         getConsumer() {
+            // console.log("fff")
             let token = localStorage.getItem("token");
             axios
                 .get(config.apiUrl + "/api/my-product", {
@@ -457,10 +466,12 @@ export default {
                 .then((res) => {
                     var ddd = [];
                     this.datas = res.data.result;
+                    // console.log(   this.datas)
                     this.datas.forEach((element) => {
                         ddd.push(element["label_name"]);
                     });
                     this.keyValueNot = ddd;
+                    // console.log(this.keyValueNot,'d')
                 });
         },
         filter() {
@@ -517,13 +528,9 @@ export default {
 }
 @media (max-width: 320px)
 {
-   /* html
-   {
-      font-size:0.1em;
-   } */
+  
    .resposiveMedia{
     display: inline-block;
-    /* justify-content: none !important; */
    }
 
 }

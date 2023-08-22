@@ -251,9 +251,10 @@ export default {
                 .then((res) => {
                     // console.log('NNNNNNN',res.data.result);
                     if (res.data.result.length == 0) {
+                        return
                         // console.log('ifffffffffffff');
                     } else {
-                        console.log("elseeeeeeeeeee");
+                        // console.log("elseeeeeeeeeee");
 
                         // console.log(res.data.result, "resdddposnse");
 

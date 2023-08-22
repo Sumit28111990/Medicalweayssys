@@ -350,7 +350,7 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res, "res");
+                    // console.log(res, "res");
                     this.reviews = res.data.result.data;
                     this.pagination = res.data.result.pagination;
                 })
