@@ -66,15 +66,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(data, index) in mapData" :key="data.id">
-                                {{
-                                    console.log(index, "datahhhhhhhhhhh")
-                                }}
-                                {{
-                                    console.log(
-                                        data,
-                                        "adsasdasddsadassadsadatahhhhhhhhhhh"
-                                    )
-                                }}
+                                
                                 <!-- <td>{{ index + 1 }}</td> -->
                                 <!-- <td>{{ index + 1 }}</td> -->
                                 <td

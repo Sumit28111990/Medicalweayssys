@@ -49,8 +49,8 @@
               </thead>
               <tbody>
                 <tr v-for="(data, index) in mapData" :key="data.id">
-                  {{ console.log(index, 'datahhhhhhhhhhh') }}
-                  {{ console.log(data, 'adsasdasddsadassadsadatahhhhhhhhhhh') }}
+                  <!-- {{ console.log(index, 'datahhhhhhhhhhh') }} -->
+                  <!-- {{ console.log(data, 'adsasdasddsadassadsadatahhhhhhhhhhh') }} -->
                   <!-- <td>{{ index + 1 }}</td> -->
                   <!-- <td>{{ index + 1 }}</td> -->
                   <!-- <td style="text-transform: capitalize;" v-for="(ir, i, u) in data" :key="u" v-if="u !== '0'">
