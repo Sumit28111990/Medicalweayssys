@@ -24,7 +24,7 @@
                       v-model="email"
                       class="form-control"
                       type="email"
-                      placeholder=""
+                      placeholder="Enter Email"
                     />
                   </div>
                  

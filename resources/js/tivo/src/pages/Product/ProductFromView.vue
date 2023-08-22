@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+        <!-- {{ parentIdValue }} -->
         <div
             v-for="data in datas"
             :class="
@@ -75,6 +76,7 @@
                         <option value="">
                             {{ data.label_description }}
                         </option>
+                       
                         <!-- <option
                                            v-for="item in data.field_values"
                                            :value="item.value"
@@ -108,7 +110,7 @@
                             aria-label="Default select example"
                             :id="data.input_name"
                         >
-                            <option value="">
+                            <option value="" >
                                 {{ data.label_description }}
                             </option>
                             <option
