@@ -323,6 +323,7 @@ export default {
             //             console.erroe(error)
             //         })
             // }
+           
         },
         removeMore(index, id) {
             console.log(index, id);

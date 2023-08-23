@@ -146,7 +146,7 @@
                                                     <span
                                                         class="show"
                                                         @click="showPassword"
-                                                    >
+                                                    > 
                                                     </span>
                                                 </div>
                                             </div>
