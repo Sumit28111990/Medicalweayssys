@@ -327,7 +327,8 @@ export default {
             this.$router.replace("/create-lead-form");
         },
         EditForm(data) {
-            this.$router.replace(`/create-lead-form/${data}`);
+            this.$router.replace(`/1
+            /${data}`);
         },
         DeleteForm(data) {
             let token = localStorage.getItem("token");

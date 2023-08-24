@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\BaseController as BaserevController;
 use App\Models\MyProductFeatures;
 use App\Models\MyProductSpecifications;
+use App\Models\MyProductSubSpecification;
 use App\Models\MyProductFeaturesCompareWith;
 use App\Models\MyProductMultiFeatures;
 use App\Models\MyProductYouTubeLink;
@@ -1271,23 +1272,39 @@ public function deleteMySpecification(string $id){
     $returnData = MyProductSpecifications::find($id);
     if (is_null($returnData)) {
         $this->setResponseCode(404);
-        $this->response()->json(['message' => 'Data not found']);
+        $this->apiResponse['message'] = 'Data not found';
         $this->apiResponse['status'] = FALSE;
     } else {
         $returnData->is_deleted = TRUE;
         $returnData->save();
         $this->setResponseCode(200);
-        return response()->json(['message' => 'Specification deleted successfully']);
-        // $this->apiResponse['message'] = 'Specification deleted successfully';
-        // $this->apiResponse['result'] = [];
+        $this->apiResponse['message'] = 'myproduct specification deleted successfully';
+        $this->apiResponse['result'] = [];
+       
     }
-    // if (!$resource) {
-    //     return response()->json(['message' => 'Specification not found'], 404);
-    // }
+  
+    return $this->sendResponse();
+}
+public function deleteMySubSpecification(Request $request, string $id) {
+    $my_subtitle_id = $request->input('my_subtitle_id');
 
-    // $resource->delete();
+    $returnData = MyProductSubSpecification::where('id', $id)
+        ->where('my_subtitle_id', $my_subtitle_id)
+        ->first();
 
-    // return response()->json(['message' => 'Specification deleted successfully']);
+    if (is_null($returnData)) {
+        $this->setResponseCode(404);
+        $this->apiResponse['message'] = 'Data not found';
+        $this->apiResponse['status'] = FALSE;
+    } else {
+        $returnData->is_deleted = TRUE;
+        $returnData->save();
+        $this->setResponseCode(200);
+        $this->apiResponse['message'] = 'myproduct sub-specification deleted successfully';
+        $this->apiResponse['result'] = [];
+    }
+    return $this->sendResponse();
+
 }
 
 }

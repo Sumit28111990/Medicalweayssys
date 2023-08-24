@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('my-product-delete-addnewfeature/{id}',[MyProductController::class,'deleteAddNewFeature']);
     Route::delete('my-product-delete-youtubelink/{id}',[MyProductController::class,'deleteProductLink']);
     Route::delete('delete-specification-field/{id}', [MyProductController::class, 'deleteMySpecification']);
+    Route::delete('delete-specification-fields/{id}', [MyProductController::class, 'deleteMySubSpecification']);
+
 
 
 

@@ -135,7 +135,7 @@ export default {
             const consumer = () => {
                 promise
                     .then((d) => {
-                        console.log("hhhh", d);
+                        // console.log("hhhh", d);
                         localStorage.setItem("token", d.data.result.token);
                         localStorage.setItem("isAuthent", "true");
                         this.$router.replace("/");

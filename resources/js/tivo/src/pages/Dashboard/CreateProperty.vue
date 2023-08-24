@@ -1478,7 +1478,7 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log("fffff", res);
+                    // console.log("fffff", res);
                     this.apiResFormList = res.data.result.data;
                     this.pagination = res.data.result.pagination;
                 })

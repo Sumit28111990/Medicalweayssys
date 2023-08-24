@@ -85,7 +85,7 @@
                                 <button
                                     class="mt-2 btn btn-primary"
                                     v-if="index > 0"
-                                    @click="removeMore(index,feature.idd)"
+                                    @click="removeMore(index, feature.idd)"
                                 >
                                     Remove more
                                 </button>
@@ -220,7 +220,8 @@
                                             removeField(
                                                 index,
                                                 subIndex,
-                                                subFeature.idd
+                                                subFeature.idd,
+                                                feature.idd
                                             )
                                         "
                                     >
@@ -297,39 +298,39 @@ export default {
     },
 
     methods: {
-        removeField(index, subIndex, id) {
-            console.log(index, "index", subIndex, "subindex", id);
-            this.features[index].subFeatures.splice(subIndex, 1);
-            this.validationErrors.name[index].splice(subIndex, 1);
-            this.validationErrors.description[index].splice(subIndex, 1);
-            this.validationErrors.image[index].splice(subIndex, 1);
-            this.imagePreview[index].splice(subIndex, 1);
-            // if (
-            //     confirm(`Are you Sure you want to remove the Subspecification?`)
-            // ) {
-            //     let token = localStorage.getItem("token");
-            //     axios
-            //         .delete(
-            //             `${config.apiUrl}/api/delete-my-product-subspecificaion/${id}`,
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${token}`,
-            //                 },
-            //             }
-            //         )
-            //         .then((response) => {
-            //             console.log(response)
-            //         }).catch((error)=>{
-            //             console.erroe(error)
-            //         })
-            // }
-           
+        removeField(index, subIndex, id, parentid) {
+            if (
+                confirm(`Are you Sure you want to remove the Subspecification?`)
+            ) {
+                this.features[index].subFeatures.splice(subIndex, 1);
+                this.validationErrors.name[index].splice(subIndex, 1);
+                this.validationErrors.description[index].splice(subIndex, 1);
+                this.validationErrors.image[index].splice(subIndex, 1);
+                this.imagePreview[index].splice(subIndex, 1);
+                let token = localStorage.getItem("token");
+                axios
+                    .delete(
+                        `${config.apiUrl}/api/delete-specification-fields/${id}?my_subtitle_id=${parentid}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.erroe(error);
+                    });
+            }
         },
         removeMore(index, id) {
             console.log(index, id);
-            this.features.splice(index, 1);
-           
+
             if (confirm(`Are you sure you want to remove the Specification?`)) {
+                this.features.splice(index, 1);
+
                 let token = localStorage.getItem("token");
 
                 axios
