@@ -124,7 +124,7 @@ export default {
                 password: this.password,
             };
             let token = localStorage.getItem("token");
-            // console.log(token,'dddd');
+            console.log(token,'dddd');
             let promise = axios.post(`${config.apiUrl}/api/login`, data, {
                 headers: {
                     "Content-Type": "application/json",

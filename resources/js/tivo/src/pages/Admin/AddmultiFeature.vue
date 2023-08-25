@@ -238,9 +238,11 @@ export default {
                         const selectedFeatures = res.data.result.map(
                             (item) => item.my_feature_id
                         );
+                        // console.log(selectedFeatures,'select feature')
                         this.checkboxValues = this.labels.map((label) =>
                             selectedFeatures.includes(label.id)
                         );
+                        // console.log(this.checkboxValues,'ddd')
                         // this.checkboxValues = Naveen;
                     }
 

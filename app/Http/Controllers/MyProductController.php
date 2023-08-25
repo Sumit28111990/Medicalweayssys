@@ -746,6 +746,108 @@ public function productyoutubelink(Request $request)
         return $this->sendResponse();
     }
 
+    // public function productSpecification(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'title' => 'required',
+    //         'image_position' => 'required',
+    //         'image' => 'required',
+    //         'parent_id' => 'required',
+    //         'sub_title'=> 'required',
+    //         'description' => 'required',
+    //         'icon' => 'required',
+    //     ]);
+    //     // print_r($request->all());die;
+    //     if ($validator->fails()) {
+    //         $this->setResponseCode(400);
+    //         $this->apiResponse['message'] = $validator->messages()->first();
+    //         $this->apiResponse['errors'] = $validator->errors();
+    //         $this->apiResponse['status'] = FALSE;
+
+    //     }else{
+    //         DB::beginTransaction();
+    //         try {            
+               
+    //             $data = $request->all();
+                
+    //             for ($i=0; $i < count($data['title']); $i++) { 
+    //                 $file = isset($data['image'][$i]) ? $data['image'][$i] : null;
+    //                 $title = $data['title'][$i];
+    //                 $parent_id = $data['parent_id'][$i];
+    //                 $image_position = $data['image_position'][$i];
+    //                 $id = $data['newid'][$i];
+    //                 $is_edit = false;
+    //                 $self_id = 0;
+    //                 if ($id) {
+    //                     $is_edit = true;
+    //                     $self_id = $id;
+    //                 }
+    //                 if ($file && $is_edit == false) {
+    //                     $filename = uniqid() .'.'. $file->getClientOriginalExtension();
+    //                     $pathForDb = 'product_images/'.$filename;
+    //                     $file->storeAs('public/product_images', $filename);
+    //                 }
+    //                 if ($is_edit) {
+    //                      $dataTable = MyProductSpecifications::find($self_id);
+    //                 }else{
+    //                      $dataTable = new MyProductSpecifications();
+    //                 }
+    //                 $dataTable->my_product_id = $parent_id;
+    //                 $dataTable->title = $title;
+    //                 if (!$is_edit) {
+    //                      $dataTable->image_url = $pathForDb;
+    //                  }
+    //                 $dataTable->image_position = $image_position;
+    //                 $dataTable->save();
+    //                 for ($j=0; $j < count($data['sub_title'][$i]); $j++) { 
+    //                      $fileSub = isset($data['icon'][$i][$j]) ? $data['icon'][$i][$j] : null;
+    //                      $description = $data['description'][$i][$j];
+    //                      $sub_title = $data['sub_title'][$i][$j];
+    //                      $id2 = $data['newid2'][$i][$j];
+    //                      $is_edit2 = false;
+    //                      $self_id2 = 0;
+    //                      if ($id) {
+    //                          $is_edit2 = true;
+    //                          $self_id2 = $id2;
+    //                      }
+    //                      if ($fileSub && $is_edit2 == false) {
+    //                          $filename = uniqid() .'.'. $fileSub->getClientOriginalExtension();
+    //                          $pathForDbIcon = 'product_images/'.$filename;
+    //                          $fileSub->storeAs('public/product_images', $filename);
+    //                     }else{
+    //                      $pathForDbIcon = null;
+    //                     }
+    //                     if ($is_edit2) {
+    //                          DB::table('my_products_subtitles')->where('id',$self_id2)->update([
+    //                              'sub_title' => $sub_title,
+    //                              'description' => $description,
+    //                              'my_subtitle_id'=>$dataTable->id,
+    //                          ]);
+    //                     }else{
+    //                         DB::table('my_products_subtitles')->insert([
+    //                          //'parent_id' => $response,
+    //                          'sub_title' => $sub_title,
+    //                          'description' => $description,
+    //                          'icon' => $pathForDbIcon,
+    //                          'my_subtitle_id'=>$dataTable->id,
+    //                      ]);
+    //                     }
+    //                 }
+    //              }
+    //             DB::commit();
+    //             $this->setResponseCode(201);
+    //             $this->apiResponse['message'] ='Product Specification Added successfully';
+    //             $this->apiResponse['result'] = [];
+    //         } catch (\Exception $ex) {
+    //             DB::rollBack();
+    //             $this->setResponseCode(500);
+    //             $this->apiResponse['errors'] = $ex;
+    //             $this->apiResponse['status'] = FALSE;
+    //         }
+    //     }
+    //     return $this->sendResponse();
+    // }
+
     public function productSpecification(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -800,39 +902,44 @@ public function productyoutubelink(Request $request)
                     $dataTable->image_position = $image_position;
                     $dataTable->save();
                     for ($j=0; $j < count($data['sub_title'][$i]); $j++) { 
-                         $fileSub = isset($data['icon'][$i][$j]) ? $data['icon'][$i][$j] : null;
-                         $description = $data['description'][$i][$j];
-                         $sub_title = $data['sub_title'][$i][$j];
-                         $id2 = $data['newid2'][$i][$j];
-                         $is_edit2 = false;
-                         $self_id2 = 0;
-                         if ($id) {
-                             $is_edit2 = true;
-                             $self_id2 = $id2;
-                         }
-                         if ($fileSub && $is_edit2 == false) {
-                             $filename = uniqid() .'.'. $fileSub->getClientOriginalExtension();
-                             $pathForDbIcon = 'product_images/'.$filename;
-                             $fileSub->storeAs('public/product_images', $filename);
-                        }else{
-                         $pathForDbIcon = null;
+                        $fileSub = isset($data['icon'][$i][$j]) ? $data['icon'][$i][$j] : null;
+                        $description = $data['description'][$i][$j];
+                        $sub_title = $data['sub_title'][$i][$j];
+                        $id2 = isset($data['newid2'][$i][$j]) ? $data['newid2'][$i][$j] : null; // Initialize $id2 properly
+                    
+                        $is_edit2 = false;
+                        $self_id2 = 0;
+                    
+                        if ($id2) {
+                            $is_edit2 = true;
+                            $self_id2 = $id2;
                         }
+                    
+                        if ($fileSub && !$is_edit2) {
+                            $filename = uniqid() .'.'. $fileSub->getClientOriginalExtension();
+                            $pathForDbIcon = 'product_images/'.$filename;
+                            $fileSub->storeAs('public/product_images', $filename);
+                        } else {
+                            $pathForDbIcon = null;
+                        }
+                    
                         if ($is_edit2) {
-                             DB::table('my_products_subtitles')->where('id',$self_id2)->update([
-                                 'sub_title' => $sub_title,
-                                 'description' => $description,
-                                 'my_subtitle_id'=>$dataTable->id,
-                             ]);
-                        }else{
+                            DB::table('my_products_subtitles')->where('id', $self_id2)->update([
+                                'sub_title' => $sub_title,
+                                'description' => $description,
+                                // 'icon' => $pathForDbIcon,
+                                'my_subtitle_id' => $dataTable->id,
+                            ]);
+                        } else {
                             DB::table('my_products_subtitles')->insert([
-                             //'parent_id' => $response,
-                             'sub_title' => $sub_title,
-                             'description' => $description,
-                             'icon' => $pathForDbIcon,
-                             'my_subtitle_id'=>$dataTable->id,
-                         ]);
+                                'sub_title' => $sub_title,
+                                'description' => $description,
+                                'icon' => $pathForDbIcon,
+                                'my_subtitle_id' => $dataTable->id,
+                            ]);
                         }
                     }
+                    
                  }
                 DB::commit();
                 $this->setResponseCode(201);
@@ -848,17 +955,40 @@ public function productyoutubelink(Request $request)
         return $this->sendResponse();
     }
 
+// public function getProductSpecification(string $id)
+// {
+   
+//     $myproduct = MyProductSpecifications::with('subspecification')->where('my_product_id',$id)->where('is_deleted', false)->get();
+//     if (is_null($myproduct)) {
+     
+//         // $formattedData['features'][] = $feature;
+//         $this->setResponseCode(404);
+//         $this->apiResponse['message'] = 'Data not found';
+//         $this->apiResponse['status'] = false;
+
+//     } else {
+//         $this->setResponseCode(200);
+//         $this->apiResponse['message'] = 'Myproduct retrieved successfully';
+//         $this->apiResponse['result'] = $myproduct;
+//     }
+
+//     return $this->sendResponse();
+// }
 public function getProductSpecification(string $id)
 {
-   
-    $myproduct = MyProductSpecifications::with('subspecification')->where('my_product_id',$id)->where('is_deleted', false)->get();
-    if (is_null($myproduct)) {
-     
-        // $formattedData['features'][] = $feature;
+    $myproduct = MyProductSpecifications::with([
+        'subspecification' => function ($query) {
+            $query->where('is_deleted', 0);
+        }
+    ])
+    ->where('my_product_id', $id)
+    ->where('is_deleted', false)
+    ->get();
+
+    if ($myproduct->isEmpty()) {
         $this->setResponseCode(404);
         $this->apiResponse['message'] = 'Data not found';
         $this->apiResponse['status'] = false;
-
     } else {
         $this->setResponseCode(200);
         $this->apiResponse['message'] = 'Myproduct retrieved successfully';
@@ -867,6 +997,7 @@ public function getProductSpecification(string $id)
 
     return $this->sendResponse();
 }
+
 public function productSequnece(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -998,6 +1129,56 @@ public function deleteGalleryImages(Request $request)
 }
 
 
+// public function getProductPreview(string $id)
+// {
+//     try {
+//         $getRelationalTable = DB::table('my_product_tablesequences')
+//             ->join('myproduct_sequneceorders', 'my_product_tablesequences.id', '=', 'myproduct_sequneceorders.sequence_id')
+//             ->orderBy('myproduct_sequneceorders.order_id')
+//             ->select('my_product_tablesequences.table')
+//             ->get();
+
+//         $orderedRelations = [];
+//         foreach ($getRelationalTable as $value) {
+//             array_push($orderedRelations, $value->table);
+//         }
+
+//         $dataQuery = MyProduct::query();
+
+//         foreach ($orderedRelations as $orderBy) {
+//             $dataQuery->with([$orderBy => function ($query) {
+//                 $query->where('is_deleted', false);
+//             }]);
+//         }
+
+//         $data = $dataQuery->where('is_deleted', false)->find($id);
+
+//         $compareData = [];
+//         $getCompareProductId = $this->compareProductFeatures($id);
+//         foreach ($getCompareProductId as $value) {
+//             $dataNN = $this->getProductF($value);
+//             array_push($compareData, $dataNN);
+//         }
+
+//         if (is_null($data)) {
+//             $this->setResponseCode(404);
+//             $this->apiResponse['message'] = 'Data not found';
+//             $this->apiResponse['status'] = false;
+//         } else {
+//             $data['compareProduct'] = $compareData;
+//             $this->setResponseCode(200);
+//             $this->apiResponse['message'] = 'Product Data get successfully';
+//             $this->apiResponse['result'] = $data;
+//         }
+       
+//         return $this->sendResponse();
+//     } catch (\Throwable $th) {
+//         $this->setResponseCode(500);
+//         $this->apiResponse['message'] = $th->getMessage();
+//         $this->apiResponse['status'] = false;
+//         return $this->sendResponse();
+//     }
+// }
 public function getProductPreview(string $id)
 {
     try {
@@ -1014,13 +1195,17 @@ public function getProductPreview(string $id)
 
         $dataQuery = MyProduct::query();
 
+        $dataQuery = MyProduct::query();
+
         foreach ($orderedRelations as $orderBy) {
             $dataQuery->with([$orderBy => function ($query) {
                 $query->where('is_deleted', false);
             }]);
         }
 
-        $data = $dataQuery->where('is_deleted', false)->find($id);
+        $data = $dataQuery->with(['specification' => function ($query) {
+            $query->where('is_deleted', false);
+        }])->where('is_deleted', false)->find($id);
 
         $compareData = [];
         $getCompareProductId = $this->compareProductFeatures($id);
